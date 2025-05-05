@@ -139,7 +139,9 @@ const UpdateRsvp = () => {
                 onValueChange={(val) => handleChange("dessert_choice", val)}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a dessert" />
+                  <SelectValue>
+                    {updatedRsvp.dessert_choice || "Select a dessert"}
+                  </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="chocolate_biscoff">
@@ -161,7 +163,9 @@ const UpdateRsvp = () => {
                 onValueChange={(val) => handleChange("dessert_topping", val)}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a topping" />
+                  <SelectValue>
+                    {updatedRsvp.dessert_topping || "Select a topping"}
+                  </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="cream">Just cream</SelectItem>
