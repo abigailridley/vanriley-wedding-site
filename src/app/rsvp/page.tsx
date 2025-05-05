@@ -103,117 +103,117 @@ const RSVPForm = () => {
     } finally {
       setLoading(false);
     }
-
-    return (
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Name */}
-        <div>
-          <Label htmlFor="name">Guest Name</Label>
-          <Input
-            id="name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
-
-        {/* Email */}
-        <div>
-          <Label htmlFor="email">Email Address</Label>
-          <Input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-
-        {/* RSVP */}
-        <div>
-          <Label htmlFor="rsvp">Will you be joining us?</Label>
-          <select
-            id="rsvp"
-            value={rsvp ? "yes" : "no"}
-            onChange={(e) => {
-              const attending = e.target.value === "yes";
-              setRsvp(attending);
-              if (!attending) {
-                setDessertChoice("");
-                setDessertTopping("");
-                setAllergies("");
-              }
-            }}
-            className="mt-1 p-3 border border-gray-300 rounded-md"
-          >
-            <option value="yes">Yes, I&apos;ll be there 🧡</option>
-            <option value="no">Sorry, I cannot attend</option>
-          </select>
-        </div>
-
-        {/* Dessert and Allergies (only if attending) */}
-        {rsvp && (
-          <>
-            {/* Dessert Choice */}
-            <div>
-              <Label htmlFor="dessert">Choose your dessert</Label>
-              <Select value={dessertChoice} onValueChange={setDessertChoice}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a dessert" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="chocolate_biscoff">
-                    Chocolate Biscoff Cake
-                  </SelectItem>
-                  <SelectItem value="lemon">Lemon Cake</SelectItem>
-                  <SelectItem value="fruit">Fruit Cake</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* Dessert Topping */}
-            <div>
-              <Label htmlFor="topping">Now, choose a dessert topping</Label>
-              <Select value={dessertTopping} onValueChange={setDessertTopping}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a topping" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="cream">Just cream</SelectItem>
-                  <SelectItem value="berries">Just berries</SelectItem>
-                  <SelectItem value="berries_cream">Berries & Cream</SelectItem>
-                  <SelectItem value="none">None</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* Allergies */}
-            <div>
-              <Label htmlFor="allergies">
-                Dietary requirements & Allergies (Optional)
-              </Label>
-              <Textarea
-                id="allergies"
-                value={allergies}
-                onChange={(e) => setAllergies(e.target.value)}
-              />
-            </div>
-          </>
-        )}
-
-        {/* Submit */}
-        <div className="flex justify-end">
-          <Button type="submit" disabled={loading}>
-            {loading ? "Submitting..." : "Submit RSVP"}
-          </Button>
-        </div>
-
-        {/* Error */}
-        {error && <p className="text-red-500">{error}</p>}
-      </form>
-    );
   };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Name */}
+      <div>
+        <Label htmlFor="name">Guest Name</Label>
+        <Input
+          id="name"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+      </div>
+
+      {/* Email */}
+      <div>
+        <Label htmlFor="email">Email Address</Label>
+        <Input
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+      </div>
+
+      {/* RSVP */}
+      <div>
+        <Label htmlFor="rsvp">Will you be joining us?</Label>
+        <select
+          id="rsvp"
+          value={rsvp ? "yes" : "no"}
+          onChange={(e) => {
+            const attending = e.target.value === "yes";
+            setRsvp(attending);
+            if (!attending) {
+              setDessertChoice("");
+              setDessertTopping("");
+              setAllergies("");
+            }
+          }}
+          className="mt-1 p-3 border border-gray-300 rounded-md"
+        >
+          <option value="yes">Yes, I&apos;ll be there 🧡</option>
+          <option value="no">Sorry, I cannot attend</option>
+        </select>
+      </div>
+
+      {/* Dessert and Allergies (only if attending) */}
+      {rsvp && (
+        <>
+          {/* Dessert Choice */}
+          <div>
+            <Label htmlFor="dessert">Choose your dessert</Label>
+            <Select value={dessertChoice} onValueChange={setDessertChoice}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a dessert" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="chocolate_biscoff">
+                  Chocolate Biscoff Cake
+                </SelectItem>
+                <SelectItem value="lemon">Lemon Cake</SelectItem>
+                <SelectItem value="fruit">Fruit Cake</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Dessert Topping */}
+          <div>
+            <Label htmlFor="topping">Now, choose a dessert topping</Label>
+            <Select value={dessertTopping} onValueChange={setDessertTopping}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a topping" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="cream">Just cream</SelectItem>
+                <SelectItem value="berries">Just berries</SelectItem>
+                <SelectItem value="berries_cream">Berries & Cream</SelectItem>
+                <SelectItem value="none">None</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Allergies */}
+          <div>
+            <Label htmlFor="allergies">
+              Dietary requirements & Allergies (Optional)
+            </Label>
+            <Textarea
+              id="allergies"
+              value={allergies}
+              onChange={(e) => setAllergies(e.target.value)}
+            />
+          </div>
+        </>
+      )}
+
+      {/* Submit */}
+      <div className="flex justify-end">
+        <Button type="submit" disabled={loading}>
+          {loading ? "Submitting..." : "Submit RSVP"}
+        </Button>
+      </div>
+
+      {/* Error */}
+      {error && <p className="text-red-500">{error}</p>}
+    </form>
+  );
 };
 
 export default RSVPForm;
