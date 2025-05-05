@@ -53,7 +53,7 @@ export async function POST(req: Request) {
 
     // Guest confirmation email
     await resend.emails.send({
-      from: "Van-Riley Wedding RSVP <rsvp@vanri;eywedding.co.uk>",
+      from: "Van-Riley Wedding RSVP <rsvp@vanrileywedding.co.uk>",
       to: body.email,
       subject: "Thanks for your RSVP!",
       html: `
