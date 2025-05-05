@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 type RsvpData = {
   uuid: string;
@@ -194,4 +194,10 @@ const UpdateRsvp = () => {
   );
 };
 
-export default UpdateRsvp;
+const UpdateRsvpPage = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <UpdateRsvp />
+  </Suspense>
+);
+
+export default UpdateRsvpPage;
