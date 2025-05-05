@@ -30,13 +30,13 @@ export async function POST(req: Request) {
   }
 
   const uuid = data.uuid;
-  const updateLink = `http://localhost:3000/update-rsvp?uuid=${uuid}`;
+  const updateLink = `http://vanrileywedding.co.uk/update-rsvp?uuid=${uuid}`;
 
   // 3. Send emails
   try {
     // Admin email
     await resend.emails.send({
-      from: "RSVP Bot <onboarding@resend.dev>",
+      from: "Van-Riley Wedding RSVP <rsvp@vanrileywedding.co.uk>",
       to: "abigail.ridley@hotmail.co.uk",
       subject: "New RSVP Submission",
       html: `
@@ -53,7 +53,7 @@ export async function POST(req: Request) {
 
     // Guest confirmation email
     await resend.emails.send({
-      from: "RSVP Bot <onboarding@resend.dev>",
+      from: "Van-Riley Wedding RSVP <rsvp@vanri;eywedding.co.uk>",
       to: body.email,
       subject: "Thanks for your RSVP!",
       html: `
