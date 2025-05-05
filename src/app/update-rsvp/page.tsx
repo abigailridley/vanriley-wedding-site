@@ -34,7 +34,36 @@ const UpdateRsvp = () => {
         const res = await fetch(`/api/update-rsvp?uuid=${uuid}`);
         const json = await res.json();
         if (json.data) {
-          setUpdatedRsvp(json.data);
+          const normalisedData: RsvpData = {
+            ...json.data,
+            dessert_choice: (() => {
+              switch (json.data.dessert_choice) {
+                case "Chocolate Biscoff Cake":
+                  return "chocolate_biscoff";
+                case "Lemon Cake":
+                  return "lemon";
+                case "Fruit Cake":
+                  return "fruit";
+                default:
+                  return "";
+              }
+            })(),
+            dessert_topping: (() => {
+              switch (json.data.dessert_topping) {
+                case "Cream":
+                  return "cream";
+                case "Berries":
+                  return "berries";
+                case "Berries and Cream":
+                  return "berries_cream";
+                case "None":
+                  return "none";
+                default:
+                  return "";
+              }
+            })(),
+          };
+          setUpdatedRsvp(normalisedData);
         } else {
           console.error("Failed to load RSVP data", json.error);
         }
@@ -139,9 +168,7 @@ const UpdateRsvp = () => {
                 onValueChange={(val) => handleChange("dessert_choice", val)}
               >
                 <SelectTrigger>
-                  <SelectValue>
-                    {updatedRsvp.dessert_choice || "Select a dessert"}
-                  </SelectValue>
+                  <SelectValue placeholder="Select a dessert" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="chocolate_biscoff">
@@ -163,9 +190,7 @@ const UpdateRsvp = () => {
                 onValueChange={(val) => handleChange("dessert_topping", val)}
               >
                 <SelectTrigger>
-                  <SelectValue>
-                    {updatedRsvp.dessert_topping || "Select a topping"}
-                  </SelectValue>
+                  <SelectValue placeholder="Select a topping" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="cream">Just cream</SelectItem>
