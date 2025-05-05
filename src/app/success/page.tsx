@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 const Success = () => {
   const router = useRouter();
@@ -32,4 +33,10 @@ const Success = () => {
   );
 };
 
-export default Success;
+const SuccessPage = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <Success />
+  </Suspense>
+);
+
+export default SuccessPage;
