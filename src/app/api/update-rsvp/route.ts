@@ -4,6 +4,7 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Define the structure for the update RSVP request
 interface RsvpData {
   uuid: string;
   rsvp: boolean;
@@ -12,6 +13,29 @@ interface RsvpData {
   allergies?: string | null;
 }
 
+// GET method: Fetch RSVP data
+export async function GET(req: Request) {
+  const url = new URL(req.url);
+  const uuid = url.searchParams.get("uuid");
+
+  if (!uuid) {
+    return NextResponse.json({ error: "UUID is required" }, { status: 400 });
+  }
+
+  const { data, error } = await supabase
+    .from("rsvps")
+    .select("uuid, name, rsvp, dessert_choice, dessert_topping, allergies")
+    .eq("uuid", uuid)
+    .single();
+
+  if (error) {
+    return NextResponse.json({ error: "Failed to retrieve RSVP" }, { status: 500 });
+  }
+
+  return NextResponse.json({ data });
+}
+
+// POST method: Update RSVP
 export async function POST(req: Request) {
   const body: RsvpData = await req.json();
 
@@ -19,10 +43,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Missing UUID" }, { status: 400 });
   }
 
-  // 1. Fetch the original RSVP for name + email
+  // Fetch the original RSVP for validation
   const { data: original, error: fetchError } = await supabase
     .from("rsvps")
-    .select("name, email")
+    .select("uuid, name, email")
     .eq("uuid", body.uuid)
     .single();
 
@@ -30,7 +54,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Could not find original RSVP" }, { status: 500 });
   }
 
-  // 2. Update the RSVP
+  // Update the RSVP
   const { error: updateError } = await supabase
     .from("rsvps")
     .update({
@@ -49,7 +73,7 @@ export async function POST(req: Request) {
   const updateLink = `http://vanrileywedding.co.uk/update-rsvp?uuid=${body.uuid}`;
 
   try {
-    // 3. Send email to admin
+    // Send email to admin
     await resend.emails.send({
       from: "Van-Riley Wedding RSVP <rsvp@vanrileywedding.co.uk>",
       to: "abigail.ridley@hotmail.co.uk",
@@ -65,7 +89,7 @@ export async function POST(req: Request) {
       `,
     });
 
-    // 4. Send confirmation email to guest
+    // Send confirmation email to guest
     await resend.emails.send({
       from: "Van-Riley Wedding RSVP <rsvp@vanrileywedding.co.uk>",
       to: original.email,
