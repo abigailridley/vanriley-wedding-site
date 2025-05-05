@@ -94,7 +94,7 @@ const RSVPForm = () => {
       setDessertTopping("");
 
       router.push("/success?type=submission");
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(err.message);
     } finally {
       setLoading(false);
@@ -144,7 +144,7 @@ const RSVPForm = () => {
           }}
           className="mt-1 p-3 border border-gray-300 rounded-md"
         >
-          <option value="yes">Yes, I'll be there 🧡</option>
+          <option value="yes">Yes, I&apos;ll be there 🧡</option>
           <option value="no">Sorry, I cannot attend</option>
         </select>
       </div>

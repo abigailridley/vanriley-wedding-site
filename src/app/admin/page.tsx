@@ -5,7 +5,17 @@ import { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
 
 const AdminPage = () => {
-  const [rsvps, setRsvps] = useState<any[]>([]);
+  interface Rsvp {
+    id: number;
+    name: string;
+    email: string;
+    rsvp: boolean;
+    dessert_choice?: string;
+    dessert_topping?: string;
+    allergies?: string;
+  }
+
+  const [rsvps, setRsvps] = useState<Rsvp[]>([]);
   const [loading, setLoading] = useState(false);
 
   // Fetch RSVPs from Supabase
