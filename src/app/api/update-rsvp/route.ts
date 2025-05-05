@@ -1,34 +1,15 @@
 import { supabase } from "@/lib/supabase";
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
 
-// Define the structure for the update RSVP request
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 interface RsvpData {
   uuid: string;
   rsvp: boolean;
   dessert_choice?: string | null;
   dessert_topping?: string | null;
   allergies?: string | null;
-}
-
-export async function GET(req: Request) {
-  const url = new URL(req.url);
-  const uuid = url.searchParams.get("uuid");
-
-  if (!uuid) {
-    return NextResponse.json({ error: "UUID is required" }, { status: 400 });
-  }
-
-  const { data, error } = await supabase
-    .from("rsvps")
-    .select("uuid, name, rsvp, dessert_choice, dessert_topping, allergies")
-    .eq("uuid", uuid)
-    .single();
-
-  if (error) {
-    return NextResponse.json({ error: "Failed to retrieve RSVP" }, { status: 500 });
-  }
-
-  return NextResponse.json({ data });
 }
 
 export async function POST(req: Request) {
@@ -38,7 +19,19 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Missing UUID" }, { status: 400 });
   }
 
-  const { error } = await supabase
+  // 1. Fetch the original RSVP for name + email
+  const { data: original, error: fetchError } = await supabase
+    .from("rsvps")
+    .select("name, email")
+    .eq("uuid", body.uuid)
+    .single();
+
+  if (fetchError || !original) {
+    return NextResponse.json({ error: "Could not find original RSVP" }, { status: 500 });
+  }
+
+  // 2. Update the RSVP
+  const { error: updateError } = await supabase
     .from("rsvps")
     .update({
       rsvp: body.rsvp,
@@ -48,9 +41,47 @@ export async function POST(req: Request) {
     })
     .eq("uuid", body.uuid);
 
-  if (error) {
+  if (updateError) {
     return NextResponse.json({ error: "Failed to update RSVP" }, { status: 500 });
   }
 
-  return NextResponse.json({ success: true });
+  const isAttending = body.rsvp === true;
+  const updateLink = `http://vanrileywedding.co.uk/update-rsvp?uuid=${body.uuid}`;
+
+  try {
+    // 3. Send email to admin
+    await resend.emails.send({
+      from: "Van-Riley Wedding RSVP <rsvp@vanrileywedding.co.uk>",
+      to: "abigail.ridley@hotmail.co.uk",
+      subject: "RSVP Updated",
+      html: `
+        <p><strong>${original.name}</strong> has updated their RSVP.</p>
+        <p><strong>Attending:</strong> ${isAttending ? "Yes" : "No"}</p>
+        ${isAttending ? `
+          <p><strong>Dessert:</strong> ${body.dessert_choice || "N/A"}</p>
+          <p><strong>Topping:</strong> ${body.dessert_topping || "None"}</p>
+          <p><strong>Allergies:</strong> ${body.allergies || "None"}</p>
+        ` : ""}
+      `,
+    });
+
+    // 4. Send confirmation email to guest
+    await resend.emails.send({
+      from: "Van-Riley Wedding RSVP <rsvp@vanrileywedding.co.uk>",
+      to: original.email,
+      subject: "Your RSVP has been updated",
+      html: `
+        <p>Hi ${original.name},</p>
+        <p>We’ve updated your RSVP — thank you!</p>
+        <p>If you ever need to make further changes, just use this link:</p>
+        <p><a href="${updateLink}">${updateLink}</a></p>
+        <p>See you soon! 💕</p>
+      `,
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (emailError) {
+    console.error("Email sending error:", emailError);
+    return NextResponse.json({ error: "RSVP updated, but email failed" }, { status: 500 });
+  }
 }
