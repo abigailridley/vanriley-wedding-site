@@ -91,15 +91,42 @@ export async function POST(req: Request) {
 
     // Send confirmation email to guest
     await resend.emails.send({
-      from: "Van-Riley Wedding RSVP <rsvp@vanrileywedding.co.uk>",
+      from: "Gemma & Ali's Wedding RSVP <rsvp@vanrileywedding.co.uk>",
       to: original.email,
       subject: "Your RSVP has been updated",
       html: `
-        <p>Hi ${original.name},</p>
-        <p>We’ve updated your RSVP — thank you!</p>
-        <p>If you ever need to make further changes, just use this link:</p>
-        <p><a href="${updateLink}">Update my RSVP</a></p>
-        <p>See you soon! 💕</p>
+        <div style="font-family: 'Georgia', serif; color: #333333; line-height: 1.8; padding: 30px; background-color: #fafafa; border-radius: 10px; max-width: 600px; margin: auto; border: 1px solid #e0e0e0;">
+          <h2 style="color: #b94e4d; text-align: center; font-size: 24px;">Hi ${original.name},</h2>
+          
+          <p style="font-size: 18px; text-align: center;">We’ve updated your RSVP — thank you for keeping us informed!</p>
+    
+          <h3 style="color: #b94e4d; font-size: 20px;">Your RSVP Details:</h3>
+          <ul style="font-size: 16px; list-style-type: none; padding: 0; margin: 0 0 20px;">
+            <li><strong>Guest Name:</strong> ${original.name}</li>
+            <li><strong>Attending:</strong> ${isAttending ? "Yes" : "No"}</li>
+            ${isAttending ? `
+              <li><strong>Dessert:</strong> ${body.dessert_choice || "N/A"}</li>
+              <li><strong>Topping:</strong> ${body.dessert_topping || "None"}</li>
+              <li><strong>Allergies:</strong> ${body.allergies || "None"}</li>
+            ` : ""}
+          </ul>
+    
+          <p style="font-size: 16px;">If you ever need to make further changes, you can do so using the link below:</p>
+          <p style="text-align: center;">
+            <a href="${updateLink}" style="background-color: #d86c2b; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Update my RSVP</a>
+          </p>
+    
+          <p style="font-size: 16px; text-align: center; color: #777;">
+            ${isAttending ? "We are so excited to celebrate with you at the wedding!" : "We’re sorry you can’t make it, but we hope to see you soon!"}
+          </p>
+    
+          <hr style="border: 1px solid #e0e0e0; margin: 30px 0;"/>
+    
+          <p style="font-size: 18px; text-align: center; color: #b94e4d;">
+            With love,<br/>
+            <strong>Gemma & Ali</strong>
+          </p>
+        </div>
       `,
     });
 
