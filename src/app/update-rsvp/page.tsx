@@ -133,7 +133,7 @@ const UpdateRsvp = () => {
       });
 
       if (res.ok) {
-        router.push("/rsvp/success");
+        router.push("/success");
       } else {
         setError("Failed to update RSVP.");
       }
