@@ -88,7 +88,11 @@ const RSVPForm = () => {
       .split(" ")
       .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
       .join(" ");
-    const formattedAllergies = allergies.trim() || null;
+    const formattedAllergies =
+      allergies
+        .trim()
+        .replace(/(^\s*\w|[.!?]\s*\w)/g, (match) => match.toUpperCase()) ||
+      null;
     const formattedDessert = formatDessertChoice(dessertChoice);
     const formattedTopping = formatDessertTopping(dessertTopping);
 
