@@ -1,16 +1,42 @@
-// app/layout.tsx
-import Footer from "@/components/footer";
-import Header from "@/components/header";
-import "@/styles/globals.css";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <main className="flex-grow">{children}</main>
-      <Footer />
-    </div>
-  );
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata = {
+  title: "VanRiley Wedding",
+  description: "RSVP and Accommodation for the VanRiley Wedding",
 };
 
-export default Layout;
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        {/* Header */}
+        <Header />
+
+        {/* Main content */}
+        <main className="flex-grow">{children}</main>
+
+        {/* Footer */}
+        <Footer />
+      </body>
+    </html>
+  );
+}
