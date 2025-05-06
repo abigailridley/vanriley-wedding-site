@@ -21,6 +21,19 @@ type RsvpData = {
   dessert_topping?: string;
 };
 
+const dessertChoiceMap: Record<string, string> = {
+  chocolate_biscoff: "Chocolate Biscoff Cake",
+  lemon: "Lemon Cake",
+  fruit: "Fruit Cake",
+};
+
+const dessertToppingMap: Record<string, string> = {
+  cream: "Cream",
+  berries: "Berries",
+  berries_cream: "Berries and Cream",
+  none: "None",
+};
+
 const UpdateRsvp = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -109,7 +122,14 @@ const UpdateRsvp = () => {
       const res = await fetch(`/api/update-rsvp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...updatedRsvp, id: uuid }),
+        body: JSON.stringify({
+          ...updatedRsvp,
+          dessert_choice:
+            dessertChoiceMap[updatedRsvp.dessert_choice || ""] || "",
+          dessert_topping:
+            dessertToppingMap[updatedRsvp.dessert_topping || ""] || "",
+          id: uuid,
+        }),
       });
 
       if (res.ok) {
@@ -163,7 +183,10 @@ const UpdateRsvp = () => {
       <h1 className="text-2xl font-semibold mb-6">Update Your RSVP</h1>
 
       <form
-        onSubmit={handleUpdate}
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleUpdate();
+        }}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             e.preventDefault(); // disable accidental enter submission
