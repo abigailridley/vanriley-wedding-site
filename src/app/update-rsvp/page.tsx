@@ -46,6 +46,12 @@ const UpdateRsvp = () => {
   const [dessertError, setDessertError] = useState(false);
   const [toppingError, setToppingError] = useState(false);
 
+  const toSentenceCase = (str: string) => {
+    return str
+      .toLowerCase()
+      .replace(/(?:^|\s)\w/g, (match) => match.toUpperCase());
+  };
+
   useEffect(() => {
     const fetchRsvpData = async () => {
       if (uuid) {
@@ -119,11 +125,16 @@ const UpdateRsvp = () => {
         return;
       }
 
+      const formattedAllergies = updatedRsvp.allergies
+        ? toSentenceCase(updatedRsvp.allergies)
+        : "";
+
       const res = await fetch(`/api/update-rsvp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...updatedRsvp,
+          allergies: formattedAllergies,
           dessert_choice:
             dessertChoiceMap[updatedRsvp.dessert_choice || ""] || "",
           dessert_topping:
