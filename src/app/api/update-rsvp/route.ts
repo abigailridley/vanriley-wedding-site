@@ -98,7 +98,7 @@ export async function POST(req: Request) {
         <p>Hi ${original.name},</p>
         <p>We’ve updated your RSVP — thank you!</p>
         <p>If you ever need to make further changes, just use this link:</p>
-        <p><a href="${updateLink}">${updateLink}</a></p>
+        <p><a href="${updateLink}">Update my RSVP</a></p>
         <p>See you soon! 💕</p>
       `,
     });

@@ -27,6 +27,8 @@ const UpdateRsvp = () => {
   const uuid = searchParams?.get("uuid");
 
   const [updatedRsvp, setUpdatedRsvp] = useState<RsvpData | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchRsvpData = async () => {
@@ -76,17 +78,32 @@ const UpdateRsvp = () => {
     e.preventDefault();
     if (!updatedRsvp) return;
 
-    const res = await fetch(`/api/update-rsvp`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedRsvp),
-    });
+    const confirm = window.confirm(
+      "Are you sure you want to update your RSVP?"
+    );
+    if (!confirm) return;
 
-    const { error } = await res.json();
-    if (error) {
-      console.error("Error updating RSVP:", error);
-    } else {
-      router.push("/success?type=update");
+    setLoading(true);
+    setError(null);
+
+    try {
+      const res = await fetch(`/api/update-rsvp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedRsvp),
+      });
+
+      const { error } = await res.json();
+      if (error) {
+        setError("Something went wrong. Please try again.");
+        console.error("Error updating RSVP:", error);
+      } else {
+        router.push("/success?type=update");
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -128,7 +145,15 @@ const UpdateRsvp = () => {
     <div className="max-w-xl mx-auto px-4 py-8">
       <h1 className="text-2xl font-semibold mb-6">Update Your RSVP</h1>
 
-      <form onSubmit={handleUpdate} className="space-y-6">
+      <form
+        onSubmit={handleUpdate}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault(); // disable accidental enter submission
+          }
+        }}
+        className="space-y-6"
+      >
         {/* Name (readonly) */}
         <div>
           <p className="text-sm text-gray-700">
@@ -215,9 +240,13 @@ const UpdateRsvp = () => {
           </>
         )}
 
-        <Button type="submit" className="w-full">
-          Update RSVP
+        {/* Submit button */}
+        <Button type="submit" className="w-full" disabled={loading}>
+          {loading ? "Updating..." : "Update RSVP"}
         </Button>
+
+        {/* Error message */}
+        {error && <p className="text-red-500 text-sm">{error}</p>}
       </form>
     </div>
   );
