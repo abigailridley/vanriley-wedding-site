@@ -23,18 +23,37 @@ const RSVPForm = () => {
   const [rsvp, setRsvp] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const [dessertError, setDessertError] = useState(false);
+  const [toppingError, setToppingError] = useState(false);
+
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    setLoading(true);
+
+    // Validate dessert & topping if attending
+    const needsDessert = rsvp && !dessertChoice;
+    const needsTopping = rsvp && !dessertTopping;
+    if (needsDessert || needsTopping) {
+      setDessertError(needsDessert);
+      setToppingError(needsTopping);
+      setLoading(false);
+      return;
+    } else {
+      setDessertError(false);
+      setToppingError(false);
+    }
 
     const confirmed = window.confirm(
-      "Are you sure you want to submit your RSVP?"
+      "All set? Double-check your info before we save your RSVP."
     );
-    if (!confirmed) return;
-
-    setLoading(true);
+    if (!confirmed) {
+      setLoading(false);
+      return;
+    }
 
     const formatDessertChoice = (choice: string) => {
       switch (choice) {
@@ -70,7 +89,6 @@ const RSVPForm = () => {
       .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
       .join(" ");
     const formattedAllergies = allergies.trim() || null;
-
     const formattedDessert = formatDessertChoice(dessertChoice);
     const formattedTopping = formatDessertTopping(dessertTopping);
 
@@ -90,6 +108,7 @@ const RSVPForm = () => {
 
       if (!response.ok) throw new Error("Failed to submit RSVP.");
 
+      // Reset form
       setName("");
       setEmail("");
       setRsvp(true);
@@ -107,7 +126,6 @@ const RSVPForm = () => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
-    // Prevent Enter from submitting the form when focused on an input
     if (e.key === "Enter" && e.target instanceof HTMLInputElement) {
       e.preventDefault();
     }
@@ -156,6 +174,8 @@ const RSVPForm = () => {
               setDessertChoice("");
               setDessertTopping("");
               setAllergies("");
+              setDessertError(false);
+              setToppingError(false);
             }
           }}
           className="mt-1 p-3 border border-gray-300 rounded-md"
@@ -171,7 +191,7 @@ const RSVPForm = () => {
           <div>
             <Label htmlFor="dessert">Choose your dessert</Label>
             <Select value={dessertChoice} onValueChange={setDessertChoice}>
-              <SelectTrigger>
+              <SelectTrigger className={dessertError ? "border-red-500" : ""}>
                 <SelectValue placeholder="Select a dessert" />
               </SelectTrigger>
               <SelectContent>
@@ -182,12 +202,17 @@ const RSVPForm = () => {
                 <SelectItem value="fruit">Fruit Cake</SelectItem>
               </SelectContent>
             </Select>
+            {dessertError && (
+              <p className="text-red-500 text-sm mt-1">
+                Please select a dessert.
+              </p>
+            )}
           </div>
 
           <div>
             <Label htmlFor="topping">Now, choose a dessert topping</Label>
             <Select value={dessertTopping} onValueChange={setDessertTopping}>
-              <SelectTrigger>
+              <SelectTrigger className={toppingError ? "border-red-500" : ""}>
                 <SelectValue placeholder="Select a topping" />
               </SelectTrigger>
               <SelectContent>
@@ -197,6 +222,11 @@ const RSVPForm = () => {
                 <SelectItem value="none">None</SelectItem>
               </SelectContent>
             </Select>
+            {toppingError && (
+              <p className="text-red-500 text-sm mt-1">
+                Please select a topping.
+              </p>
+            )}
           </div>
 
           <div>

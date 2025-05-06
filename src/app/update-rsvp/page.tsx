@@ -30,6 +30,9 @@ const UpdateRsvp = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [dessertError, setDessertError] = useState(false);
+  const [toppingError, setToppingError] = useState(false);
+
   useEffect(() => {
     const fetchRsvpData = async () => {
       if (uuid) {
@@ -74,34 +77,48 @@ const UpdateRsvp = () => {
     fetchRsvpData();
   }, [uuid]);
 
-  const handleUpdate = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!updatedRsvp) return;
-
-    const confirm = window.confirm(
-      "Are you sure you want to update your RSVP?"
-    );
-    if (!confirm) return;
-
+  const handleUpdate = async () => {
     setLoading(true);
-    setError(null);
+    setError("");
+
+    if (!updatedRsvp) {
+      setError("Missing guest ID.");
+      setLoading(false);
+      return;
+    }
+
+    if (
+      updatedRsvp.rsvp &&
+      (!updatedRsvp.dessert_choice || !updatedRsvp.dessert_topping)
+    ) {
+      setDessertError(!updatedRsvp.dessert_choice);
+      setToppingError(!updatedRsvp.dessert_topping);
+      setLoading(false);
+      return;
+    }
 
     try {
+      const confirmed = window.confirm(
+        "Does everything look right? We can't wait to celebrate with you."
+      );
+      if (!confirmed) {
+        setLoading(false);
+        return;
+      }
+
       const res = await fetch(`/api/update-rsvp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedRsvp),
+        body: JSON.stringify({ ...updatedRsvp, id: uuid }),
       });
 
-      const { error } = await res.json();
-      if (error) {
-        setError("Something went wrong. Please try again.");
-        console.error("Error updating RSVP:", error);
+      if (res.ok) {
+        router.push("/rsvp/success");
       } else {
-        router.push("/success?type=update");
+        setError("Failed to update RSVP.");
       }
-    } catch (err) {
-      setError("An error occurred. Please try again.");
+    } catch {
+      setError("Something went wrong.");
     } finally {
       setLoading(false);
     }
@@ -188,21 +205,28 @@ const UpdateRsvp = () => {
               <label className="block text-sm font-medium mb-1">
                 Choose your dessert
               </label>
-              <Select
-                value={updatedRsvp.dessert_choice || ""}
-                onValueChange={(val) => handleChange("dessert_choice", val)}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a dessert" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="chocolate_biscoff">
-                    Chocolate Biscoff Cake
-                  </SelectItem>
-                  <SelectItem value="lemon">Lemon Cake</SelectItem>
-                  <SelectItem value="fruit">Fruit Cake</SelectItem>
-                </SelectContent>
-              </Select>
+              <div className={dessertError ? "border-red-500" : ""}>
+                <Select
+                  value={updatedRsvp.dessert_choice || ""}
+                  onValueChange={(val) => handleChange("dessert_choice", val)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a dessert" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="chocolate_biscoff">
+                      Chocolate Biscoff Cake
+                    </SelectItem>
+                    <SelectItem value="lemon">Lemon Cake</SelectItem>
+                    <SelectItem value="fruit">Fruit Cake</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              {dessertError && (
+                <p className="text-red-500 text-sm mt-1">
+                  Please select a dessert.
+                </p>
+              )}
             </div>
 
             {/* Topping */}
@@ -214,7 +238,7 @@ const UpdateRsvp = () => {
                 value={updatedRsvp.dessert_topping || ""}
                 onValueChange={(val) => handleChange("dessert_topping", val)}
               >
-                <SelectTrigger>
+                <SelectTrigger className={toppingError ? "border-red-500" : ""}>
                   <SelectValue placeholder="Select a topping" />
                 </SelectTrigger>
                 <SelectContent>
@@ -224,6 +248,11 @@ const UpdateRsvp = () => {
                   <SelectItem value="none">None</SelectItem>
                 </SelectContent>
               </Select>
+              {toppingError && (
+                <p className="text-red-500 text-sm mt-1">
+                  Please select a topping.
+                </p>
+              )}
             </div>
 
             {/* Allergies */}
