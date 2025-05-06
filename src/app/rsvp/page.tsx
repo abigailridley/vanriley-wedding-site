@@ -20,15 +20,21 @@ const RSVPForm = () => {
   const [allergies, setAllergies] = useState("");
   const [dessertChoice, setDessertChoice] = useState("");
   const [dessertTopping, setDessertTopping] = useState("");
-  const [rsvp, setRsvp] = useState(true); // Default to attending
+  const [rsvp, setRsvp] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError(null);
+
+    const confirmed = window.confirm(
+      "Are you sure you want to submit your RSVP?"
+    );
+    if (!confirmed) return;
+
+    setLoading(true);
 
     const formatDessertChoice = (choice: string) => {
       switch (choice) {
@@ -82,9 +88,7 @@ const RSVPForm = () => {
         }),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to submit RSVP.");
-      }
+      if (!response.ok) throw new Error("Failed to submit RSVP.");
 
       setName("");
       setEmail("");
@@ -95,18 +99,26 @@ const RSVPForm = () => {
 
       router.push("/success?type=submission");
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("An unknown error occurred.");
-      }
+      if (err instanceof Error) setError(err.message);
+      else setError("An unknown error occurred.");
     } finally {
       setLoading(false);
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    // Prevent Enter from submitting the form when focused on an input
+    if (e.key === "Enter" && e.target instanceof HTMLInputElement) {
+      e.preventDefault();
+    }
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form
+      onSubmit={handleSubmit}
+      onKeyDown={handleKeyDown}
+      className="space-y-6"
+    >
       {/* Name */}
       <div>
         <Label htmlFor="name">Guest Name</Label>
@@ -156,7 +168,6 @@ const RSVPForm = () => {
       {/* Dessert and Allergies (only if attending) */}
       {rsvp && (
         <>
-          {/* Dessert Choice */}
           <div>
             <Label htmlFor="dessert">Choose your dessert</Label>
             <Select value={dessertChoice} onValueChange={setDessertChoice}>
@@ -173,7 +184,6 @@ const RSVPForm = () => {
             </Select>
           </div>
 
-          {/* Dessert Topping */}
           <div>
             <Label htmlFor="topping">Now, choose a dessert topping</Label>
             <Select value={dessertTopping} onValueChange={setDessertTopping}>
@@ -189,7 +199,6 @@ const RSVPForm = () => {
             </Select>
           </div>
 
-          {/* Allergies */}
           <div>
             <Label htmlFor="allergies">
               Dietary requirements & Allergies (Optional)
