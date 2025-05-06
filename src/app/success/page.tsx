@@ -20,7 +20,7 @@ const Success = () => {
         <p>
           {type === "update"
             ? "You will receive an email confirming your changes."
-            : "We can&apos;t wait to see you at the wedding!"}
+            : "We can't wait to see you at the wedding!"}
         </p>
         <p>
           {type === "update"
