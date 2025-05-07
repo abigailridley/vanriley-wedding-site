@@ -1,20 +1,37 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { Geist, Geist_Mono } from "next/font/google";
+import {
+  Bodoni_Moda,
+  Dancing_Script,
+  Playfair_Display,
+} from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const dancingScript = Dancing_Script({
+  variable: "--font-dancing-script",
   subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+  style: ["normal"],
+});
+const bodoniModa = Bodoni_Moda({
+  variable: "--font-bodoni-moda",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+  style: ["normal"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfair-display",
   subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+  style: ["normal"],
 });
 
 export const metadata = {
-  title: "VanRiley Wedding",
+  title: "Van-Riley Wedding",
   description: "RSVP and Accommodation for the VanRiley Wedding",
 };
 
@@ -26,7 +43,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${dancingScript.variable} 
+      ${bodoniModa.variable}
+      ${playfairDisplay.variable}
+      antialiased`}
       >
         {/* Header */}
         <Header />
