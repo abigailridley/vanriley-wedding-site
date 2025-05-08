@@ -1,16 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -34,7 +23,6 @@ const RSVPForm = () => {
     setError(null);
     setLoading(true);
 
-    // Validate dessert & topping if attending
     const needsDessert = rsvp && !dessertChoice;
     const needsTopping = rsvp && !dessertTopping;
     if (needsDessert || needsTopping) {
@@ -55,34 +43,6 @@ const RSVPForm = () => {
       return;
     }
 
-    const formatDessertChoice = (choice: string) => {
-      switch (choice) {
-        case "chocolate_biscoff":
-          return "Chocolate Biscoff Cake";
-        case "lemon":
-          return "Lemon Cake";
-        case "fruit":
-          return "Fruit Cake";
-        default:
-          return null;
-      }
-    };
-
-    const formatDessertTopping = (topping: string) => {
-      switch (topping) {
-        case "cream":
-          return "Cream";
-        case "berries":
-          return "Berries";
-        case "berries_cream":
-          return "Berries and Cream";
-        case "none":
-          return "None";
-        default:
-          return null;
-      }
-    };
-
     const formattedEmail = email.trim().toLowerCase();
     const formattedName = name
       .split(" ")
@@ -93,8 +53,6 @@ const RSVPForm = () => {
         .trim()
         .replace(/(^\s*\w|[.!?]\s*\w)/g, (match) => match.toUpperCase()) ||
       null;
-    const formattedDessert = formatDessertChoice(dessertChoice);
-    const formattedTopping = formatDessertTopping(dessertTopping);
 
     try {
       const response = await fetch("/api/submit-rsvp", {
@@ -104,15 +62,14 @@ const RSVPForm = () => {
           name: formattedName,
           email: formattedEmail,
           rsvp,
-          dessert_choice: formattedDessert,
-          dessert_topping: formattedTopping,
+          dessert_choice: dessertChoice,
+          dessert_topping: dessertTopping,
           allergies: formattedAllergies,
         }),
       });
 
       if (!response.ok) throw new Error("Failed to submit RSVP.");
 
-      // Reset form
       setName("");
       setEmail("");
       setRsvp(true);
@@ -129,45 +86,56 @@ const RSVPForm = () => {
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
-    if (e.key === "Enter" && e.target instanceof HTMLInputElement) {
-      e.preventDefault();
-    }
-  };
-
   return (
     <form
       onSubmit={handleSubmit}
-      onKeyDown={handleKeyDown}
-      className="space-y-6"
+      className="space-y-8 max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg"
     >
-      {/* Name */}
+      <h2 className="text-3xl font-playfair text-center text-hunter-green">
+        RSVP Form
+      </h2>
+
       <div>
-        <Label htmlFor="name">Guest Name</Label>
-        <Input
+        <label
+          htmlFor="name"
+          className="block text-lg font-bodoni text-hunter-green"
+        >
+          Guest Name
+        </label>
+        <input
           id="name"
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
+          className="mt-1 p-4 border border-gray-300 rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green"
         />
       </div>
 
-      {/* Email */}
       <div>
-        <Label htmlFor="email">Email Address</Label>
-        <Input
+        <label
+          htmlFor="email"
+          className="block text-lg font-bodoni text-hunter-green"
+        >
+          Email Address
+        </label>
+        <input
           id="email"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          className="mt-1 p-4 border border-gray-300 rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green"
         />
       </div>
 
-      {/* RSVP */}
       <div>
-        <Label htmlFor="rsvp">Will you be joining us?</Label>
+        <label
+          htmlFor="rsvp"
+          className="block text-lg font-bodoni text-hunter-green"
+        >
+          Will you be joining us?
+        </label>
         <select
           id="rsvp"
           value={rsvp ? "yes" : "no"}
@@ -182,30 +150,33 @@ const RSVPForm = () => {
               setToppingError(false);
             }
           }}
-          className="mt-1 p-3 border border-gray-300 rounded-md"
+          className="mt-1 p-4 border border-gray-300 rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green"
         >
           <option value="yes">Yes, I&apos;ll be there 🧡</option>
           <option value="no">Sorry, I cannot attend</option>
         </select>
       </div>
 
-      {/* Dessert and Allergies (only if attending) */}
       {rsvp && (
         <>
           <div>
-            <Label htmlFor="dessert">Choose your dessert</Label>
-            <Select value={dessertChoice} onValueChange={setDessertChoice}>
-              <SelectTrigger className={dessertError ? "border-red-500" : ""}>
-                <SelectValue placeholder="Select a dessert" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="chocolate_biscoff">
-                  Chocolate Biscoff Cake
-                </SelectItem>
-                <SelectItem value="lemon">Lemon Cake</SelectItem>
-                <SelectItem value="fruit">Fruit Cake</SelectItem>
-              </SelectContent>
-            </Select>
+            <label
+              htmlFor="dessert"
+              className="block text-lg font-bodoni text-hunter-green"
+            >
+              Choose your dessert
+            </label>
+            <select
+              id="dessert"
+              value={dessertChoice}
+              onChange={(e) => setDessertChoice(e.target.value)}
+              className={`mt-1 p-4 border ${dessertError ? "border-red-500" : "border-gray-300"} rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green`}
+            >
+              <option value="">Select a dessert</option>
+              <option value="chocolate_biscoff">Chocolate Biscoff Cake</option>
+              <option value="lemon">Lemon Cake</option>
+              <option value="fruit">Fruit Cake</option>
+            </select>
             {dessertError && (
               <p className="text-red-500 text-sm mt-1">
                 Please select a dessert.
@@ -214,18 +185,24 @@ const RSVPForm = () => {
           </div>
 
           <div>
-            <Label htmlFor="topping">Now, choose a dessert topping</Label>
-            <Select value={dessertTopping} onValueChange={setDessertTopping}>
-              <SelectTrigger className={toppingError ? "border-red-500" : ""}>
-                <SelectValue placeholder="Select a topping" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="cream">Just cream</SelectItem>
-                <SelectItem value="berries">Just berries</SelectItem>
-                <SelectItem value="berries_cream">Berries & Cream</SelectItem>
-                <SelectItem value="none">None</SelectItem>
-              </SelectContent>
-            </Select>
+            <label
+              htmlFor="topping"
+              className="block text-lg font-bodoni text-hunter-green"
+            >
+              Choose a dessert topping
+            </label>
+            <select
+              id="topping"
+              value={dessertTopping}
+              onChange={(e) => setDessertTopping(e.target.value)}
+              className={`mt-1 p-4 border ${toppingError ? "border-red-500" : "border-gray-300"} rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green`}
+            >
+              <option value="">Select a topping</option>
+              <option value="cream">Just cream</option>
+              <option value="berries">Just berries</option>
+              <option value="berries_cream">Berries & Cream</option>
+              <option value="none">None</option>
+            </select>
             {toppingError && (
               <p className="text-red-500 text-sm mt-1">
                 Please select a topping.
@@ -234,27 +211,33 @@ const RSVPForm = () => {
           </div>
 
           <div>
-            <Label htmlFor="allergies">
+            <label
+              htmlFor="allergies"
+              className="block text-lg font-bodoni text-hunter-green"
+            >
               Dietary requirements & Allergies (Optional)
-            </Label>
-            <Textarea
+            </label>
+            <textarea
               id="allergies"
               value={allergies}
               onChange={(e) => setAllergies(e.target.value)}
+              className="mt-1 p-4 border border-gray-300 rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green"
             />
           </div>
         </>
       )}
 
-      {/* Submit */}
       <div className="flex justify-end">
-        <Button type="submit" disabled={loading}>
+        <button
+          type="submit"
+          disabled={loading}
+          className="bg-burnt-orange text-white py-2 px-6 rounded-md font-bodoni text-lg hover:bg-burnt-orange/90 focus:outline-none focus:ring-2 focus:ring-hunter-green"
+        >
           {loading ? "Submitting..." : "Submit RSVP"}
-        </Button>
+        </button>
       </div>
 
-      {/* Error */}
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-red-500 text-center mt-2">{error}</p>}
     </form>
   );
 };

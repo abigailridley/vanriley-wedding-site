@@ -1,14 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
@@ -60,32 +51,14 @@ const UpdateRsvp = () => {
         if (json.data) {
           const normalisedData: RsvpData = {
             ...json.data,
-            dessert_choice: (() => {
-              switch (json.data.dessert_choice) {
-                case "Chocolate Biscoff Cake":
-                  return "chocolate_biscoff";
-                case "Lemon Cake":
-                  return "lemon";
-                case "Fruit Cake":
-                  return "fruit";
-                default:
-                  return "";
-              }
-            })(),
-            dessert_topping: (() => {
-              switch (json.data.dessert_topping) {
-                case "Cream":
-                  return "cream";
-                case "Berries":
-                  return "berries";
-                case "Berries and Cream":
-                  return "berries_cream";
-                case "None":
-                  return "none";
-                default:
-                  return "";
-              }
-            })(),
+            dessert_choice:
+              Object.entries(dessertChoiceMap).find(
+                ([, label]) => label === json.data.dessert_choice
+              )?.[0] || "",
+            dessert_topping:
+              Object.entries(dessertToppingMap).find(
+                ([, label]) => label === json.data.dessert_topping
+              )?.[0] || "",
           };
           setUpdatedRsvp(normalisedData);
         } else {
@@ -200,38 +173,30 @@ const UpdateRsvp = () => {
         }}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            e.preventDefault(); // disable accidental enter submission
+            e.preventDefault();
           }
         }}
         className="space-y-6"
       >
-        {/* Name (readonly) */}
-        <div>
-          <p className="text-sm text-gray-700">
-            Guest Name: <span className="italic">{updatedRsvp.name}</span>
-          </p>
-        </div>
+        <p className="text-sm text-gray-700">
+          Guest Name: <span className="italic">{updatedRsvp.name}</span>
+        </p>
 
         {/* RSVP */}
         <div>
           <label className="block text-sm font-medium mb-1">
             Will you be joining us?
           </label>
-          <Select
+          <select
+            className="w-full border rounded p-2"
             value={updatedRsvp.rsvp ? "yes" : "no"}
-            onValueChange={handleRsvpChange}
+            onChange={(e) => handleRsvpChange(e.target.value)}
           >
-            <SelectTrigger>
-              <SelectValue placeholder="Select RSVP" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="yes">Yes, I’ll be there 🧡</SelectItem>
-              <SelectItem value="no">Sorry, I can’t attend</SelectItem>
-            </SelectContent>
-          </Select>
+            <option value="yes">Yes, I’ll be there 🧡</option>
+            <option value="no">Sorry, I can’t attend</option>
+          </select>
         </div>
 
-        {/* Dessert + Topping + Allergies */}
         {updatedRsvp.rsvp && (
           <>
             {/* Dessert */}
@@ -239,23 +204,20 @@ const UpdateRsvp = () => {
               <label className="block text-sm font-medium mb-1">
                 Choose your dessert
               </label>
-              <div className={dessertError ? "border-red-500" : ""}>
-                <Select
-                  value={updatedRsvp.dessert_choice || ""}
-                  onValueChange={(val) => handleChange("dessert_choice", val)}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a dessert" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="chocolate_biscoff">
-                      Chocolate Biscoff Cake
-                    </SelectItem>
-                    <SelectItem value="lemon">Lemon Cake</SelectItem>
-                    <SelectItem value="fruit">Fruit Cake</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+              <select
+                className={`w-full border rounded p-2 ${
+                  dessertError ? "border-red-500" : ""
+                }`}
+                value={updatedRsvp.dessert_choice || ""}
+                onChange={(e) => handleChange("dessert_choice", e.target.value)}
+              >
+                <option value="">Select a dessert</option>
+                <option value="chocolate_biscoff">
+                  Chocolate Biscoff Cake
+                </option>
+                <option value="lemon">Lemon Cake</option>
+                <option value="fruit">Fruit Cake</option>
+              </select>
               {dessertError && (
                 <p className="text-red-500 text-sm mt-1">
                   Please select a dessert.
@@ -268,20 +230,21 @@ const UpdateRsvp = () => {
               <label className="block text-sm font-medium mb-1">
                 Now, choose a dessert topping
               </label>
-              <Select
+              <select
+                className={`w-full border rounded p-2 ${
+                  toppingError ? "border-red-500" : ""
+                }`}
                 value={updatedRsvp.dessert_topping || ""}
-                onValueChange={(val) => handleChange("dessert_topping", val)}
+                onChange={(e) =>
+                  handleChange("dessert_topping", e.target.value)
+                }
               >
-                <SelectTrigger className={toppingError ? "border-red-500" : ""}>
-                  <SelectValue placeholder="Select a topping" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="cream">Just cream</SelectItem>
-                  <SelectItem value="berries">Just berries</SelectItem>
-                  <SelectItem value="berries_cream">Berries & Cream</SelectItem>
-                  <SelectItem value="none">None</SelectItem>
-                </SelectContent>
-              </Select>
+                <option value="">Select a topping</option>
+                <option value="cream">Just cream</option>
+                <option value="berries">Just berries</option>
+                <option value="berries_cream">Berries & Cream</option>
+                <option value="none">None</option>
+              </select>
               {toppingError && (
                 <p className="text-red-500 text-sm mt-1">
                   Please select a topping.
@@ -294,8 +257,9 @@ const UpdateRsvp = () => {
               <label className="block text-sm font-medium mb-1">
                 Dietary requirements & Allergies (optional)
               </label>
-              <Textarea
+              <textarea
                 name="allergies"
+                className="w-full border rounded p-2"
                 value={updatedRsvp.allergies || ""}
                 onChange={handleInputChange}
               />
@@ -303,12 +267,14 @@ const UpdateRsvp = () => {
           </>
         )}
 
-        {/* Submit button */}
-        <Button type="submit" className="w-full" disabled={loading}>
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-orange-600 text-white py-2 px-4 rounded hover:bg-orange-700 disabled:opacity-50"
+        >
           {loading ? "Updating..." : "Update RSVP"}
-        </Button>
+        </button>
 
-        {/* Error message */}
         {error && <p className="text-red-500 text-sm">{error}</p>}
       </form>
     </div>
