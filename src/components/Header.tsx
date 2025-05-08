@@ -19,7 +19,7 @@ const Header = () => {
           </Link>
         </div>
 
-        <div className="font-playfair text-2xl tracking-tighter flex-grow text-center">
+        <div className="font-playfair text-2xl tracking-tighter text-center">
           GEMMA & ALI
         </div>
 
