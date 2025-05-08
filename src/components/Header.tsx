@@ -2,10 +2,10 @@ import Link from "next/link";
 
 const Header = () => {
   return (
-    <header className="py-3 bg-tan shadow-md text-dark-grey">
-      <nav className="container mx-auto flex justify-between ">
+    <header className="py-4 bg-tan shadow-md text-dark-grey relative">
+      <nav className="container mx-auto flex justify-between items-center relative">
         {/* Left column: links */}
-        <div className="w-24 space-x-1 font-playfair text-lg tracking-widest">
+        <div className="hidden sm:flex space-x-4 font-playfair text-lg tracking-widest">
           <Link href="/" className="hover:underline">
             home
           </Link>
@@ -19,13 +19,29 @@ const Header = () => {
           </Link>
         </div>
 
-        <div className="font-playfair text-2xl tracking-tighter text-center">
+        {/* Centre column: GEMMA & ALI - always centered */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 sm:static sm:transform-none font-playfair text-2xl tracking-tighter text-center pt-5 sm:pt-0">
           GEMMA & ALI
         </div>
 
-        {/* Right column: empty for now */}
+        {/* Right column: empty */}
         <div className="w-24" />
       </nav>
+
+      {/* Links shown below on small screens */}
+      <div className="sm:hidden flex justify-center space-x-4 mt-4 font-playfair text-lg tracking-widest pt-5 sm:pt-0">
+        <Link href="/" className="hover:underline">
+          home
+        </Link>
+        <span>|</span>
+        <Link href="/accom" className="hover:underline">
+          accommodation
+        </Link>
+        <span>|</span>
+        <Link href="/rsvp" className="hover:underline">
+          RSVP
+        </Link>
+      </div>
     </header>
   );
 };
