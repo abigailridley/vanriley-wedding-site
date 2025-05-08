@@ -160,7 +160,23 @@ const UpdateRsvp = () => {
     );
   };
 
-  if (!updatedRsvp) return <p>Loading...</p>;
+  if (!updatedRsvp)
+    return (
+      <div className="max-w-xl mx-auto px-4 py-8 font-playfair text-center">
+        {" "}
+        <p>We're sorry, we cannot find your RSVP details!</p>
+        <p className="mt-4">
+          Please contact us at{" "}
+          <a
+            href="mailto:gemmavan94@gmail.com"
+            className="text-blue-600 underline"
+          >
+            gemmavan94@gmail.com
+          </a>{" "}
+          to get your choices updated.
+        </p>
+      </div>
+    );
 
   return (
     <div className="max-w-xl mx-auto px-4 py-8">
