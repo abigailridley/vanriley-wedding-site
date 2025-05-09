@@ -98,7 +98,7 @@ export async function POST(req: Request) {
         <div style="font-family: 'Georgia', serif; color: #333333; line-height: 1.8; padding: 30px; background-color: #fafafa; border-radius: 10px; max-width: 600px; margin: auto; border: 1px solid #e0e0e0;">
           <h2 style="color: #b94e4d; text-align: center; font-size: 24px;">Hi ${original.name},</h2>
           
-          <p style="font-size: 18px; text-align: center;">We’ve updated your RSVP — thank you for keeping us informed!</p>
+          <p style="font-size: 18px; text-align: center;">We've updated your RSVP — thank you for keeping us informed!</p>
     
           <h3 style="color: #b94e4d; font-size: 20px;">Your RSVP Details:</h3>
           <ul style="font-size: 16px; list-style-type: none; padding: 0; margin: 0 0 20px;">
@@ -117,7 +117,7 @@ export async function POST(req: Request) {
           </p>
     
           <p style="font-size: 16px; text-align: center; color: #777;">
-            ${isAttending ? "We are so excited to celebrate with you at the wedding!" : "We’re sorry you can’t make it, but we hope to see you soon!"}
+            ${isAttending ? "We are so excited to celebrate with you at the wedding!" : "We're sorry you can’t make it, but we hope to see you soon!"}
           </p>
     
           <hr style="border: 1px solid #e0e0e0; margin: 30px 0;"/>

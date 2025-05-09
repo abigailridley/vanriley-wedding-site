@@ -17,7 +17,7 @@ export default function Home() {
             />
 
             <div className="absolute bottom-4 right-4 text-right font-bodoni text-6xl tracking-tight leading-none text-white shadow-xl">
-              <div className="font-dancing">we're</div>
+              <div className="font-dancing">we&apos;re</div>
               <div>getting</div>
               <div>married</div>
             </div>
