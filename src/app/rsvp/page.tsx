@@ -103,14 +103,14 @@ const RSVPForm = () => {
         onSubmit={handleSubmit}
         className="space-y-8 max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg"
       >
-        <h2 className="text-3xl font-playfair text-center text-hunter-green">
+        <h2 className="text-3xl font-bodoni text-center text-hunter-green">
           RSVP
         </h2>
 
         <div>
           <label
             htmlFor="name"
-            className="block text-lg font-bodoni text-hunter-green"
+            className="block text-lg font-playfair text-hunter-green"
           >
             Guest Name
           </label>
