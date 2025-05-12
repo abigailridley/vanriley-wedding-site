@@ -10,12 +10,12 @@ const Header = () => {
             home
           </Link>
           <span>|</span>
-          <Link href="/accom" className="hover:underline">
-            accommodation
-          </Link>
-          <span>|</span>
           <Link href="/rsvp" className="hover:underline">
             RSVP
+          </Link>
+          <span>|</span>
+          <Link href="/faqs" className="hover:underline">
+            faqs
           </Link>
         </div>
 
@@ -34,12 +34,12 @@ const Header = () => {
           home
         </Link>
         <span>|</span>
-        <Link href="/accom" className="hover:underline">
-          accommodation
-        </Link>
-        <span>|</span>
         <Link href="/rsvp" className="hover:underline">
           RSVP
+        </Link>
+        <span>|</span>
+        <Link href="/faqs" className="hover:underline">
+          faqs
         </Link>
       </div>
     </header>
