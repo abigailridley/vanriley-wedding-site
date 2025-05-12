@@ -76,7 +76,7 @@ export async function POST(req: Request) {
     // Send email to admin
     await resend.emails.send({
       from: "Van-Riley Wedding RSVP <rsvp@vanrileywedding.co.uk>",
-      to: "abigail.ridley@hotmail.co.uk",
+      to: "hello@vanrileywedding.co.uk",
       subject: "RSVP Updated",
       html: `
         <p><strong>${original.name}</strong> has updated their RSVP.</p>
