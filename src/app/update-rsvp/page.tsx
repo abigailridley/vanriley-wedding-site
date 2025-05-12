@@ -162,25 +162,26 @@ const UpdateRsvp = () => {
 
   if (!updatedRsvp)
     return (
-      <div className="max-w-xl mx-auto px-4 py-8 font-playfair text-center">
-        {" "}
-        <p>We&apos;re sorry, we cannot find your RSVP details!</p>
+      <div className="max-w-xl mx-auto px-4 py-10 font-playfair text-center text-lg">
+        <p>We&apos;re sorry, we can’t find your RSVP details!</p>
         <p className="mt-4">
           Please contact us at{" "}
           <a
-            href="mailto:gemmavan94@gmail.com"
-            className="text-blue-600 underline"
+            href="mailto:hello@vanrileywedding.co.uk"
+            className="text-orange-700 underline"
           >
-            gemmavan94@gmail.com
+            hello@vanrileywedding.co.uk
           </a>{" "}
-          to get your choices updated.
+          and we’ll help you update your choices.
         </p>
       </div>
     );
 
   return (
-    <div className="max-w-xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-semibold mb-6">Update Your RSVP</h1>
+    <div className="max-w-xl mx-auto px-4 py-10 font-playfair">
+      <h1 className="text-3xl font-semibold mb-6 text-center">
+        Update Your RSVP
+      </h1>
 
       <form
         onSubmit={(e) => {
@@ -194,17 +195,17 @@ const UpdateRsvp = () => {
         }}
         className="space-y-6"
       >
-        <p className="text-sm text-gray-700">
+        <p className="text-base text-gray-700">
           Guest Name: <span className="italic">{updatedRsvp.name}</span>
         </p>
 
         {/* RSVP */}
         <div>
-          <label className="block text-sm font-medium mb-1">
+          <label className="block text-base mb-1">
             Will you be joining us?
           </label>
           <select
-            className="w-full border rounded p-2"
+            className="w-full border border-gray-300 rounded-md p-2 bg-white"
             value={updatedRsvp.rsvp ? "yes" : "no"}
             onChange={(e) => handleRsvpChange(e.target.value)}
           >
@@ -217,12 +218,12 @@ const UpdateRsvp = () => {
           <>
             {/* Dessert */}
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-base mb-1">
                 Choose your dessert
               </label>
               <select
-                className={`w-full border rounded p-2 ${
-                  dessertError ? "border-red-500" : ""
+                className={`w-full border rounded-md p-2 bg-white ${
+                  dessertError ? "border-red-500" : "border-gray-300"
                 }`}
                 value={updatedRsvp.dessert_choice || ""}
                 onChange={(e) => handleChange("dessert_choice", e.target.value)}
@@ -235,7 +236,7 @@ const UpdateRsvp = () => {
                 <option value="fruit">Fruit Cake</option>
               </select>
               {dessertError && (
-                <p className="text-red-500 text-sm mt-1">
+                <p className="text-red-600 text-sm mt-1">
                   Please select a dessert.
                 </p>
               )}
@@ -243,12 +244,12 @@ const UpdateRsvp = () => {
 
             {/* Topping */}
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-base mb-1">
                 Now, choose a dessert topping
               </label>
               <select
-                className={`w-full border rounded p-2 ${
-                  toppingError ? "border-red-500" : ""
+                className={`w-full border rounded-md p-2 bg-white ${
+                  toppingError ? "border-red-500" : "border-gray-300"
                 }`}
                 value={updatedRsvp.dessert_topping || ""}
                 onChange={(e) =>
@@ -262,7 +263,7 @@ const UpdateRsvp = () => {
                 <option value="none">None</option>
               </select>
               {toppingError && (
-                <p className="text-red-500 text-sm mt-1">
+                <p className="text-red-600 text-sm mt-1">
                   Please select a topping.
                 </p>
               )}
@@ -270,12 +271,13 @@ const UpdateRsvp = () => {
 
             {/* Allergies */}
             <div>
-              <label className="block text-sm font-medium mb-1">
-                Dietary requirements & Allergies (optional)
+              <label className="block text-base mb-1">
+                Dietary requirements & Allergies{" "}
+                <span className="text-sm text-gray-500">(optional)</span>
               </label>
               <textarea
                 name="allergies"
-                className="w-full border rounded p-2"
+                className="w-full border border-gray-300 rounded-md p-2"
                 value={updatedRsvp.allergies || ""}
                 onChange={handleInputChange}
               />
@@ -286,19 +288,19 @@ const UpdateRsvp = () => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-orange-600 text-white py-2 px-4 rounded hover:bg-orange-700 disabled:opacity-50"
+          className="w-full bg-orange-700 text-white py-2 px-4 rounded-md hover:bg-orange-800 transition-colors disabled:opacity-50"
         >
           {loading ? "Updating..." : "Update RSVP"}
         </button>
 
-        {error && <p className="text-red-500 text-sm">{error}</p>}
+        {error && <p className="text-red-600 text-sm">{error}</p>}
       </form>
     </div>
   );
 };
 
 const UpdateRsvpPage = () => (
-  <Suspense fallback={<div>Loading...</div>}>
+  <Suspense fallback={<div className="text-center py-10">Loading...</div>}>
     <UpdateRsvp />
   </Suspense>
 );
