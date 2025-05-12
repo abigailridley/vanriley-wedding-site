@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -31,20 +32,26 @@ export default function Home() {
       </div>
 
       {/* Info Sections */}
-      <section className="bg-white text-dark-grey px-[20vw] py-12 space-y-20">
+      <section className="bg-tan text-dark-grey px-[20vw] py-12 space-y-20">
         {/* Row 1 */}
         <div className="flex flex-col md:flex-row items-center ">
           <div className="relative w-full md:w-1/2 max-w-sm">
             <Image
               src="/images/ring.jpg"
-              alt="A special moment"
+              alt="Gemma & Ali"
               width={600}
               height={400}
               className="rounded-xl object-cover grayscale brightness-90 w-full h-auto"
             />
           </div>
-          <div className="w-full md:w-1/2 font-playfair text-sm leading-relaxed tracking-wide">
-            <p className="text-center md:text-left">23 May 2026 · Time TBC</p>
+          <div className="w-full md:w-1/2 font-playfair  text-xl md:text-2xl leading-relaxed tracking-wide">
+            <div className="text-center justify-center pt-5 md:pt-0 ">
+              <p>23 May 2026 </p>
+              <p>·</p>
+              <small>
+                Arrival 1:30pm; <p>Ceremony 2pm</p>
+              </small>
+            </div>
           </div>
         </div>
 
@@ -53,15 +60,28 @@ export default function Home() {
           <div className="relative w-full md:w-1/2 max-w-sm">
             <Image
               src="/images/laugh.jpg"
-              alt="Venue details"
+              alt="Gemma & Ali"
               width={600}
               height={400}
               className="rounded-xl object-cover grayscale brightness-90 w-full h-auto"
             />
           </div>
-          <div className="w-full md:w-1/2 font-playfair text-sm leading-relaxed tracking-wide">
-            <p className="text-center md:text-left">More info to come</p>
+          <div className=" md:w-1/2 font-playfair text-xl md:text-2xl leading-relaxed tracking-wide">
+            <div className="items-center  text-center">
+              <p>Alpheton Hall,</p>
+              <p>Church Lane, Alpheton,</p>
+              <p>Sudbury, Suffolk</p>
+              <p>CO10 9BL</p>
+            </div>
           </div>
+        </div>
+        <div className="flex justify-center pt-10">
+          <Link
+            href="/rsvp"
+            className="bg-[#4b6c52] text-white font-bodoni tracking-wide text-xl px-10 py-3 rounded-full shadow-md hover:opacity-90 transition"
+          >
+            RSVP
+          </Link>
         </div>
       </section>
     </>
