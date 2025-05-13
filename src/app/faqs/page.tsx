@@ -88,8 +88,7 @@ export default function FAQsPage() {
           </p>
           <p className="mt-2">
             If you really feel you’d like to contribute something, a small
-            donation towards our honeymoon fund would be perfect (details to
-            come).
+            donation towards our honeymoon fund would be perfect.
           </p>
         </>
       ),
