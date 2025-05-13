@@ -66,7 +66,7 @@ export default function FAQsPage() {
             </p>
           </div>
           <p className="mt-2">
-            The nearest larger town is Sudbury, where you'll find plenty of
+            The nearest larger town is Sudbury, where you&apos;ll find plenty of
             alternative hotels and guest rooms.
           </p>
         </>
@@ -75,7 +75,7 @@ export default function FAQsPage() {
     {
       title: "Who is invited?",
       answer:
-        "We’re so looking forward to celebrating with you! Please note that the invitation is only for the people named on your invite — we are keeping things small and intimate, so we kindly ask that you don’t bring additional guests or children. Thank you for understanding.",
+        "We're so looking forward to celebrating with you! Please note that the invitation is only for the people named on your invite — we are keeping things small and intimate, so we kindly ask that you don’t bring additional guests or children. Thank you for understanding.",
     },
     {
       title: "Do you have a gift list?",

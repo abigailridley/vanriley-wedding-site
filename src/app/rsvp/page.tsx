@@ -94,7 +94,7 @@ const RSVPForm = () => {
           RSVP form.
         </p>
         <p>
-          If you're replying on behalf of another guest, please submit a
+          If you&apos;re replying on behalf of another guest, please submit a
           separate RSVP for each person. You may use the same email address —
           each guest will receive their own confirmation.
         </p>
