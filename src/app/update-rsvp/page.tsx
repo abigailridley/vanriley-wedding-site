@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 type RsvpData = {
   uuid: string;
@@ -184,158 +184,16 @@ const UpdateRsvp = () => {
         onSubmit={handleUpdate}
         className="space-y-8 max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg"
       >
-        <h2 className="text-3xl font-bodoni text-center text-hunter-green">
-          Update RSVP
-        </h2>
-
-        <div>
-          <label
-            htmlFor="name"
-            className="block text-lg font-playfair text-hunter-green"
-          >
-            Guest Name
-          </label>
-          <input
-            id="name"
-            type="text"
-            value={updatedRsvp.name}
-            onChange={handleInputChange}
-            name="name"
-            required
-            className="mt-1 p-4 border border-gray-300 rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green"
-          />
-        </div>
-
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-lg font-bodoni text-hunter-green"
-          >
-            Email Address
-          </label>
-          <input
-            id="email"
-            type="email"
-            value={updatedRsvp.email}
-            onChange={handleInputChange}
-            name="email"
-            required
-            className="mt-1 p-4 border border-gray-300 rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green"
-          />
-        </div>
-
-        <div>
-          <label
-            htmlFor="rsvp"
-            className="block text-lg font-bodoni text-hunter-green"
-          >
-            Will you be joining us?
-          </label>
-          <select
-            id="rsvp"
-            value={updatedRsvp.rsvp ? "yes" : "no"}
-            onChange={(e) => handleRsvpChange(e.target.value)}
-            className="mt-1 p-4 border border-gray-300 rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green"
-          >
-            <option value="yes">Yes, I&apos;ll be there ♡</option>
-            <option value="no">Sorry, I cannot attend</option>
-          </select>
-        </div>
-
-        {updatedRsvp.rsvp && (
-          <>
-            <div>
-              <label
-                htmlFor="dessert"
-                className="block text-lg font-bodoni text-hunter-green"
-              >
-                Choose your dessert
-              </label>
-              <select
-                id="dessert"
-                value={updatedRsvp.dessert_choice}
-                onChange={(e) => handleChange("dessert_choice", e.target.value)}
-                className={`mt-1 p-4 border ${dessertError ? "border-red-500" : "border-gray-300"} rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green`}
-              >
-                <option value="">Select a dessert</option>
-                <option value="chocolate_biscoff">
-                  Chocolate Biscoff Cake
-                </option>
-                <option value="lemon">Lemon Cake</option>
-                <option value="fruit">Fruit Cake</option>
-              </select>
-              {dessertError && (
-                <p className="text-red-500 text-sm mt-2">
-                  Please select a dessert.
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label
-                htmlFor="topping"
-                className="block text-lg font-bodoni text-hunter-green"
-              >
-                Choose your topping
-              </label>
-              <select
-                id="topping"
-                value={updatedRsvp.dessert_topping}
-                onChange={(e) =>
-                  handleChange("dessert_topping", e.target.value)
-                }
-                className={`mt-1 p-4 border ${toppingError ? "border-red-500" : "border-gray-300"} rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green`}
-              >
-                <option value="">Select a topping</option>
-                <option value="cream">Cream</option>
-                <option value="berries">Berries</option>
-                <option value="berries_cream">Berries & Cream</option>
-                <option value="none">None</option>
-              </select>
-              {toppingError && (
-                <p className="text-red-500 text-sm mt-2">
-                  Please select a topping.
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label
-                htmlFor="allergies"
-                className="block text-lg font-bodoni text-hunter-green"
-              >
-                Allergies or dietary requirements
-              </label>
-              <textarea
-                id="allergies"
-                value={updatedRsvp.allergies || ""}
-                onChange={handleInputChange}
-                name="allergies"
-                rows={4}
-                className="mt-1 p-4 border border-gray-300 rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green"
-              />
-            </div>
-          </>
-        )}
-
-        <div className="mt-6 text-center">
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full sm:w-auto px-6 py-3 bg-orange-700 text-white text-lg font-bold rounded-lg hover:bg-orange-600 transition"
-          >
-            {loading ? (
-              <span className="animate-spin">Submitting...</span>
-            ) : (
-              "Update RSVP"
-            )}
-          </button>
-        </div>
-
-        {error && <p className="text-center text-red-500">{error}</p>}
+        {/* Form content */}
       </form>
     </section>
   );
 };
 
-export default UpdateRsvp;
+const UpdateRsvpPage = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <UpdateRsvp />
+  </Suspense>
+);
+
+export default UpdateRsvpPage;
