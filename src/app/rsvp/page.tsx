@@ -88,11 +88,12 @@ const RSVPForm = () => {
 
   return (
     <section className="bg-green text-dark-grey px-[10vw] py-12">
-      <div className="max-w-2xl mx-auto mb-8 italic text-center text-md sm:text-lg font-playfair tracking-wide text-dark-grey bg-tan p-6 rounded-lg shadow-sm">
-        <p className="mb-4">
+      <div className="max-w-3xl mx-auto mb-8 italic text-center text-md sm:text-lg font-playfair tracking-wide text-dark-grey bg-tan p-6 rounded-lg shadow-sm">
+        <p>
           We kindly ask that only those named on the invitation complete this
           RSVP form.
         </p>
+        <hr className="my-4 w-2/3 mx-auto border-dark-grey opacity-50 " />
         <p>
           If you&apos;re replying on behalf of another guest, please submit a
           separate RSVP for each person. You may use the same email address —
