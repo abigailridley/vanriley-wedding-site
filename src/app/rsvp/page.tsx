@@ -3,6 +3,20 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+// Mappings to display readable dessert and topping labels (if needed)
+const dessertChoiceMap: Record<string, string> = {
+  chocolate_biscoff: "Chocolate Biscoff Cake",
+  lemon: "Lemon Cake",
+  fruit: "Fruit Cake",
+};
+
+const dessertToppingMap: Record<string, string> = {
+  cream: "Cream",
+  berries: "Berries",
+  berries_cream: "Berries and Cream",
+  none: "None",
+};
+
 const RSVPForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -100,6 +114,7 @@ const RSVPForm = () => {
           each guest will receive their own confirmation.
         </p>
       </div>
+
       <form
         onSubmit={handleSubmit}
         className="space-y-8 max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg"
