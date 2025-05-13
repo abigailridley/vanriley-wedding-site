@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-// Mappings to display readable dessert and topping labels (if needed)
+// Human-readable labels for email formatting
 const dessertChoiceMap: Record<string, string> = {
   chocolate_biscoff: "Chocolate Biscoff Cake",
   lemon: "Lemon Cake",
@@ -76,13 +76,27 @@ const RSVPForm = () => {
           name: formattedName,
           email: formattedEmail,
           rsvp,
-          dessert_choice: dessertChoice,
-          dessert_topping: dessertTopping,
+          dessert_choice: dessertChoice, // database: raw value
+          dessert_topping: dessertTopping, // database: raw value
           allergies: formattedAllergies,
         }),
       });
 
       if (!response.ok) throw new Error("Failed to submit RSVP.");
+
+      // Optionally, trigger an email with readable values:
+      await fetch("/api/send-confirmation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formattedName,
+          email: formattedEmail,
+          rsvp,
+          dessert: rsvp ? dessertChoiceMap[dessertChoice] : null,
+          topping: rsvp ? dessertToppingMap[dessertTopping] : null,
+          allergies: formattedAllergies,
+        }),
+      });
 
       setName("");
       setEmail("");
