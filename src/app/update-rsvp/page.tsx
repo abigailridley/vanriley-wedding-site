@@ -1,11 +1,12 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 type RsvpData = {
   uuid: string;
   name: string;
+  email: string;
   rsvp: boolean;
   allergies?: string;
   dessert_choice?: string;
@@ -178,55 +179,83 @@ const UpdateRsvp = () => {
     );
 
   return (
-    <div className="max-w-xl mx-auto px-4 py-10 font-playfair">
-      <h1 className="text-3xl font-semibold mb-6 text-center">
-        Update Your RSVP
-      </h1>
-
+    <section className="bg-green text-dark-grey px-[10vw] py-12">
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleUpdate();
-        }}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            e.preventDefault();
-          }
-        }}
-        className="space-y-6"
+        onSubmit={handleUpdate}
+        className="space-y-8 max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg"
       >
-        <p className="text-base text-gray-700">
-          Guest Name: <span className="italic">{updatedRsvp.name}</span>
-        </p>
+        <h2 className="text-3xl font-bodoni text-center text-hunter-green">
+          Update RSVP
+        </h2>
 
-        {/* RSVP */}
         <div>
-          <label className="block text-base mb-1">
+          <label
+            htmlFor="name"
+            className="block text-lg font-playfair text-hunter-green"
+          >
+            Guest Name
+          </label>
+          <input
+            id="name"
+            type="text"
+            value={updatedRsvp.name}
+            onChange={handleInputChange}
+            name="name"
+            required
+            className="mt-1 p-4 border border-gray-300 rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green"
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="email"
+            className="block text-lg font-bodoni text-hunter-green"
+          >
+            Email Address
+          </label>
+          <input
+            id="email"
+            type="email"
+            value={updatedRsvp.email}
+            onChange={handleInputChange}
+            name="email"
+            required
+            className="mt-1 p-4 border border-gray-300 rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green"
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="rsvp"
+            className="block text-lg font-bodoni text-hunter-green"
+          >
             Will you be joining us?
           </label>
           <select
-            className="w-full border border-gray-300 rounded-md p-2 bg-white"
+            id="rsvp"
             value={updatedRsvp.rsvp ? "yes" : "no"}
             onChange={(e) => handleRsvpChange(e.target.value)}
+            className="mt-1 p-4 border border-gray-300 rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green"
           >
-            <option value="yes">Yes, I’ll be there 🧡</option>
-            <option value="no">Sorry, I can’t attend</option>
+            <option value="yes">Yes, I&apos;ll be there ♡</option>
+            <option value="no">Sorry, I cannot attend</option>
           </select>
         </div>
 
         {updatedRsvp.rsvp && (
           <>
-            {/* Dessert */}
             <div>
-              <label className="block text-base mb-1">
+              <label
+                htmlFor="dessert"
+                className="block text-lg font-bodoni text-hunter-green"
+              >
                 Choose your dessert
               </label>
               <select
-                className={`w-full border rounded-md p-2 bg-white ${
-                  dessertError ? "border-red-500" : "border-gray-300"
-                }`}
-                value={updatedRsvp.dessert_choice || ""}
+                id="dessert"
+                value={updatedRsvp.dessert_choice}
                 onChange={(e) => handleChange("dessert_choice", e.target.value)}
+                className={`mt-1 p-4 border ${dessertError ? "border-red-500" : "border-gray-300"} rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green`}
               >
                 <option value="">Select a dessert</option>
                 <option value="chocolate_biscoff">
@@ -236,73 +265,77 @@ const UpdateRsvp = () => {
                 <option value="fruit">Fruit Cake</option>
               </select>
               {dessertError && (
-                <p className="text-red-600 text-sm mt-1">
+                <p className="text-red-500 text-sm mt-2">
                   Please select a dessert.
                 </p>
               )}
             </div>
 
-            {/* Topping */}
             <div>
-              <label className="block text-base mb-1">
-                Now, choose a dessert topping
+              <label
+                htmlFor="topping"
+                className="block text-lg font-bodoni text-hunter-green"
+              >
+                Choose your topping
               </label>
               <select
-                className={`w-full border rounded-md p-2 bg-white ${
-                  toppingError ? "border-red-500" : "border-gray-300"
-                }`}
-                value={updatedRsvp.dessert_topping || ""}
+                id="topping"
+                value={updatedRsvp.dessert_topping}
                 onChange={(e) =>
                   handleChange("dessert_topping", e.target.value)
                 }
+                className={`mt-1 p-4 border ${toppingError ? "border-red-500" : "border-gray-300"} rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green`}
               >
                 <option value="">Select a topping</option>
-                <option value="cream">Just cream</option>
-                <option value="berries">Just berries</option>
+                <option value="cream">Cream</option>
+                <option value="berries">Berries</option>
                 <option value="berries_cream">Berries & Cream</option>
                 <option value="none">None</option>
               </select>
               {toppingError && (
-                <p className="text-red-600 text-sm mt-1">
+                <p className="text-red-500 text-sm mt-2">
                   Please select a topping.
                 </p>
               )}
             </div>
 
-            {/* Allergies */}
             <div>
-              <label className="block text-base mb-1">
-                Dietary requirements & Allergies{" "}
-                <span className="text-sm text-gray-500">(optional)</span>
+              <label
+                htmlFor="allergies"
+                className="block text-lg font-bodoni text-hunter-green"
+              >
+                Allergies or dietary requirements
               </label>
               <textarea
-                name="allergies"
-                className="w-full border border-gray-300 rounded-md p-2"
+                id="allergies"
                 value={updatedRsvp.allergies || ""}
                 onChange={handleInputChange}
+                name="allergies"
+                rows={4}
+                className="mt-1 p-4 border border-gray-300 rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green"
               />
             </div>
           </>
         )}
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-orange-700 text-white py-2 px-4 rounded-md hover:bg-orange-800 transition-colors disabled:opacity-50"
-        >
-          {loading ? "Updating..." : "Update RSVP"}
-        </button>
+        <div className="mt-6 text-center">
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full sm:w-auto px-6 py-3 bg-orange-700 text-white text-lg font-bold rounded-lg hover:bg-orange-600 transition"
+          >
+            {loading ? (
+              <span className="animate-spin">Submitting...</span>
+            ) : (
+              "Update RSVP"
+            )}
+          </button>
+        </div>
 
-        {error && <p className="text-red-600 text-sm">{error}</p>}
+        {error && <p className="text-center text-red-500">{error}</p>}
       </form>
-    </div>
+    </section>
   );
 };
 
-const UpdateRsvpPage = () => (
-  <Suspense fallback={<div className="text-center py-10">Loading...</div>}>
-    <UpdateRsvp />
-  </Suspense>
-);
-
-export default UpdateRsvpPage;
+export default UpdateRsvp;
