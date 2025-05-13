@@ -6,7 +6,6 @@ import { Suspense, useEffect, useState } from "react";
 type RsvpData = {
   uuid: string;
   name: string;
-  email: string;
   rsvp: boolean;
   allergies?: string;
   dessert_choice?: string;
@@ -179,14 +178,124 @@ const UpdateRsvp = () => {
     );
 
   return (
-    <section className="bg-green text-dark-grey px-[10vw] py-12">
+    <div className="max-w-xl mx-auto px-4 py-10 font-playfair">
+      <h1 className="text-3xl font-semibold mb-6 text-center">
+        Update Your RSVP
+      </h1>
+
       <form
-        onSubmit={handleUpdate}
-        className="space-y-8 max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleUpdate();
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+          }
+        }}
+        className="space-y-6"
       >
-        {/* Form content */}
+        <p className="text-base text-gray-700">
+          Guest Name: <span className="italic">{updatedRsvp.name}</span>
+        </p>
+
+        {/* RSVP */}
+        <div>
+          <label className="block text-base mb-1">
+            Will you be joining us?
+          </label>
+          <select
+            className="w-full border border-gray-300 rounded-md p-2 bg-white"
+            value={updatedRsvp.rsvp ? "yes" : "no"}
+            onChange={(e) => handleRsvpChange(e.target.value)}
+          >
+            <option value="yes">Yes, I’ll be there 🧡</option>
+            <option value="no">Sorry, I can’t attend</option>
+          </select>
+        </div>
+
+        {updatedRsvp.rsvp && (
+          <>
+            {/* Dessert */}
+            <div>
+              <label className="block text-base mb-1">
+                Choose your dessert
+              </label>
+              <select
+                className={`w-full border rounded-md p-2 bg-white ${
+                  dessertError ? "border-red-500" : "border-gray-300"
+                }`}
+                value={updatedRsvp.dessert_choice || ""}
+                onChange={(e) => handleChange("dessert_choice", e.target.value)}
+              >
+                <option value="">Select a dessert</option>
+                <option value="chocolate_biscoff">
+                  Chocolate Biscoff Cake
+                </option>
+                <option value="lemon">Lemon Cake</option>
+                <option value="fruit">Fruit Cake</option>
+              </select>
+              {dessertError && (
+                <p className="text-red-600 text-sm mt-1">
+                  Please select a dessert.
+                </p>
+              )}
+            </div>
+
+            {/* Topping */}
+            <div>
+              <label className="block text-base mb-1">
+                Now, choose a dessert topping
+              </label>
+              <select
+                className={`w-full border rounded-md p-2 bg-white ${
+                  toppingError ? "border-red-500" : "border-gray-300"
+                }`}
+                value={updatedRsvp.dessert_topping || ""}
+                onChange={(e) =>
+                  handleChange("dessert_topping", e.target.value)
+                }
+              >
+                <option value="">Select a topping</option>
+                <option value="cream">Just cream</option>
+                <option value="berries">Just berries</option>
+                <option value="berries_cream">Berries & Cream</option>
+                <option value="none">None</option>
+              </select>
+              {toppingError && (
+                <p className="text-red-600 text-sm mt-1">
+                  Please select a topping.
+                </p>
+              )}
+            </div>
+
+            {/* Allergies */}
+            <div>
+              <label className="block text-base mb-1">
+                Dietary requirements & Allergies{" "}
+                <span className="text-sm text-gray-500">(optional)</span>
+              </label>
+              <textarea
+                name="allergies"
+                className="w-full border border-gray-300 rounded-md p-2"
+                value={updatedRsvp.allergies || ""}
+                onChange={handleInputChange}
+              />
+            </div>
+          </>
+        )}
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-orange-700 text-white py-2 px-4 rounded-md hover:bg-orange-800 transition-colors disabled:opacity-50"
+        >
+          {loading ? "Updating..." : "Update RSVP"}
+        </button>
+
+        {error && <p className="text-red-600 text-sm">{error}</p>}
       </form>
-    </section>
+    </div>
   );
 };
 
