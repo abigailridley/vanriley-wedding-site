@@ -49,7 +49,7 @@ export default function Home() {
               <p>23 May 2026 </p>
               <p>·</p>
               <small>
-                Arrival 1:30pm; <p>Ceremony 2pm</p>
+                Arrival 1pm; <p>Ceremony 2pm</p>
               </small>
             </div>
           </div>

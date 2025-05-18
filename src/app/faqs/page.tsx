@@ -8,7 +8,7 @@ export default function FAQsPage() {
         <div>
           Saturday 23rd May 2026 in beautiful Suffolk.
           <div className="mt-2 italic">
-            Please arrive from <strong>1:30pm </strong>— the ceremony will begin
+            Please arrive from <strong>1pm </strong>— the ceremony will begin
             promptly at <strong>2:00pm</strong>
           </div>
         </div>
