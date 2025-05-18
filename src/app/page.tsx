@@ -66,7 +66,7 @@ export default function Home() {
               className="rounded-xl object-cover grayscale brightness-90 w-full h-auto"
             />
           </div>
-          <div className=" md:w-1/2 font-playfair text-xl md:text-2xl leading-relaxed tracking-wide">
+          <div className=" md:w-1/2 font-playfair text-md md:text-xl leading-relaxed tracking-wide">
             <div className="items-center  text-center">
               <p>Alpheton Hall,</p>
               <p>Church Lane, Alpheton,</p>
