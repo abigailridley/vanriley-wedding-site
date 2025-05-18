@@ -51,14 +51,6 @@ const UpdateRsvp = () => {
         if (json.data) {
           const normalisedData: RsvpData = {
             ...json.data,
-            dessert_choice:
-              Object.entries(dessertChoiceMap).find(
-                ([, label]) => label === json.data.dessert_choice
-              )?.[0] || "",
-            dessert_topping:
-              Object.entries(dessertToppingMap).find(
-                ([, label]) => label === json.data.dessert_topping
-              )?.[0] || "",
           };
           setUpdatedRsvp(normalisedData);
         } else {
@@ -108,10 +100,7 @@ const UpdateRsvp = () => {
         body: JSON.stringify({
           ...updatedRsvp,
           allergies: formattedAllergies,
-          dessert_choice:
-            dessertChoiceMap[updatedRsvp.dessert_choice || ""] || "",
-          dessert_topping:
-            dessertToppingMap[updatedRsvp.dessert_topping || ""] || "",
+
           id: uuid,
         }),
       });
@@ -196,7 +185,7 @@ const UpdateRsvp = () => {
         </h2>
         <div>
           <p className="text-base font-playfair text-gray-700">
-            Update the RSVP for <strong>updatedRsvp.name</strong>
+            Update the RSVP for <strong>{updatedRsvp.name}</strong>
           </p>
         </div>
         <div>
