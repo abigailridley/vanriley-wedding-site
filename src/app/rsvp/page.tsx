@@ -115,7 +115,7 @@ const RSVPForm = () => {
 
   return (
     <section className="bg-green text-dark-grey px-[10vw] py-12">
-      <div className="max-w-3xl mx-auto mb-8 italic text-center text-md sm:text-lg font-playfair tracking-wide text-dark-grey bg-tan p-6 rounded-lg shadow-sm">
+      <div className="max-w-3xl mx-auto mb-8 italic text-center text-md sm:text-lg font-playfair tracking-wide text-dark-grey bg-orange p-6 rounded-lg shadow-sm">
         <p>
           We kindly ask that only those named on the invitation complete this
           RSVP form.

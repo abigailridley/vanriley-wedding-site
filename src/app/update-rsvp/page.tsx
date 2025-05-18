@@ -178,9 +178,9 @@ const UpdateRsvp = () => {
     );
 
   return (
-    <section className="bg-white">
+    <section className="bg-green text-dark-grey px-[10vw] py-12">
       <form
-        className="space-y-8 max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg"
+        className="space-y-8 my-10px max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg"
         onSubmit={(e) => {
           e.preventDefault();
           handleUpdate();
@@ -196,7 +196,7 @@ const UpdateRsvp = () => {
         </h2>
         <div>
           <p className="text-base font-playfair text-gray-700">
-            Guest Name: <span className="italic">{updatedRsvp.name}</span>
+            Update the RSVP for <span className="bold">{updatedRsvp.name}</span>
           </p>
         </div>
         <div>
