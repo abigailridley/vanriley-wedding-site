@@ -64,7 +64,7 @@ export async function POST(req: Request) {
           <p><strong>Topping:</strong> ${formattedTopping}</p>
           <p><strong>Allergies:</strong> ${body.allergies || "None"}</p>
         ` : ""}
-        <p><strong>Update RSVP:</strong> <a href="${updateLink}">${updateLink}</a></p>
+       
       `,
     });
 
@@ -86,12 +86,16 @@ export async function POST(req: Request) {
             <p><strong>Topping:</strong> ${formattedTopping}</p>
             <p><strong>Allergies:</strong> ${body.allergies || "None"}</p>
             <p>You can update your RSVP any time using this link:</p>
-            <p><a href="${updateLink}" style="color: #b94e4d;">${updateLink}</a></p>
+             <p style="text-align: center;">
+            <a href="${updateLink}" style="background-color: #d86c2b; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Update my RSVP</a>
+          </p>
           `
               : `
             <p style="font-size: 18px; text-align: center;">We’re sorry you can’t join us — but thank you for letting us know.</p>
             <p>If your plans change, you can update your RSVP here:</p>
-            <p><a href="${updateLink}" style="color: #b94e4d;">${updateLink}</a></p>
+             <p style="text-align: center;">
+            <a href="${updateLink}" style="background-color: #d86c2b; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Update my RSVP</a>
+          </p>
           `
           }
         </div>
