@@ -26,7 +26,7 @@ export default function Home() {
         </div>
 
         {/* Date at bottom right edge of hero */}
-        <div className="absolute bottom-0 text-5xl  right-6 md:right-10 text-white font-bodoni tracking-wide">
+        <div className="absolute bottom-0 text-4xl sm:text-5xl  right-6 md:right-10 text-white font-bodoni tracking-wide">
           23 MAY 2026
         </div>
       </div>
