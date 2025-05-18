@@ -196,7 +196,7 @@ const UpdateRsvp = () => {
         </h2>
         <div>
           <p className="text-base font-playfair text-gray-700">
-            Update the RSVP for <span className="bold">{updatedRsvp.name}</span>
+            Update the RSVP for <strong>updatedRsvp.name</strong>
           </p>
         </div>
         <div>
