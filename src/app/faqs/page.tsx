@@ -21,6 +21,17 @@ export default function FAQsPage() {
           <strong>Alpheton Hall</strong>
           <br />
           Church Lane, Alpheton, Sudbury, Suffolk CO10 9BL
+          <div className="rounded inline-block overflow-hidden shadow-lg border mt-8">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2449.747730540292!2d0.7331821119432542!3d52.12071867184228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8537210914327%3A0xfeb038023475ff50!2sAlpheton%20Hall%20Barns!5e0!3m2!1sen!2suk!4v1747563895841!5m2!1sen!2suk"
+              width="350"
+              height="350"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
         </>
       ),
     },
@@ -45,13 +56,7 @@ export default function FAQsPage() {
               <strong>Address:</strong> High St, Lavenham, Sudbury CO10 9QA
             </p>
             <p>
-              <strong>Phone:</strong>{" "}
-              <a
-                href="tel:01787247477"
-                className="underline hover:text-[#4b6c52]"
-              >
-                01787 247477
-              </a>
+              <strong>Phone:</strong> <span> 01787 247477</span>
             </p>
             <p>
               <strong>Website:</strong>{" "}
