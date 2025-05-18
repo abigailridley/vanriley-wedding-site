@@ -178,12 +178,9 @@ const UpdateRsvp = () => {
     );
 
   return (
-    <div className="max-w-xl mx-auto px-4 py-10 font-playfair">
-      <h1 className="text-3xl font-semibold mb-6 text-center">
-        Update Your RSVP
-      </h1>
-
+    <section className="bg-white">
       <form
+        className="space-y-8 max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg"
         onSubmit={(e) => {
           e.preventDefault();
           handleUpdate();
@@ -193,38 +190,43 @@ const UpdateRsvp = () => {
             e.preventDefault();
           }
         }}
-        className="space-y-6"
       >
-        <p className="text-base text-gray-700">
-          Guest Name: <span className="italic">{updatedRsvp.name}</span>
-        </p>
-
-        {/* RSVP */}
+        <h2 className="text-3xl font-bodoni text-center text-hunter-green">
+          Update RSVP
+        </h2>
         <div>
-          <label className="block text-base mb-1">
+          <p className="text-base font-playfair text-gray-700">
+            Guest Name: <span className="italic">{updatedRsvp.name}</span>
+          </p>
+        </div>
+        <div>
+          <label
+            htmlFor="rsvp"
+            className="block text-lg text-hunter-green mb-1"
+          >
             Will you be joining us?
           </label>
           <select
-            className="w-full border border-gray-300 rounded-md p-2 bg-white"
+            className="mt-1 p-4 border border-gray-300 rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green"
             value={updatedRsvp.rsvp ? "yes" : "no"}
             onChange={(e) => handleRsvpChange(e.target.value)}
           >
-            <option value="yes">Yes, I’ll be there 🧡</option>
-            <option value="no">Sorry, I can’t attend</option>
+            <option value="yes">Yes, I&apos;ll be there ♡</option>
+            <option value="no">Sorry, I can&apos;t attend</option>
           </select>
         </div>
-
         {updatedRsvp.rsvp && (
           <>
             {/* Dessert */}
             <div>
-              <label className="block text-base mb-1">
+              <label
+                htmlFor="dessert"
+                className="block text-lg text-hunter-green"
+              >
                 Choose your dessert
               </label>
               <select
-                className={`w-full border rounded-md p-2 bg-white ${
-                  dessertError ? "border-red-500" : "border-gray-300"
-                }`}
+                className={` mt-1 p-4 border ${dessertError ? "border-red-500" : "border-gray-300"} rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green`}
                 value={updatedRsvp.dessert_choice || ""}
                 onChange={(e) => handleChange("dessert_choice", e.target.value)}
               >
@@ -236,21 +238,23 @@ const UpdateRsvp = () => {
                 <option value="fruit">Fruit Cake</option>
               </select>
               {dessertError && (
-                <p className="text-red-600 text-sm mt-1">
+                <p className="text-red-500 text-sm mt-1">
                   Please select a dessert.
                 </p>
               )}
             </div>
-
             {/* Topping */}
+
             <div>
-              <label className="block text-base mb-1">
-                Now, choose a dessert topping
+              <label
+                htmlFor="topping"
+                className="block text-lg text-hunter-green"
+              >
+                Choose a dessert topping
               </label>
               <select
-                className={`w-full border rounded-md p-2 bg-white ${
-                  toppingError ? "border-red-500" : "border-gray-300"
-                }`}
+                id="topping"
+                className={`mt-1 p-4 border ${toppingError ? "border-red-500" : "border-gray-300"} rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green`}
                 value={updatedRsvp.dessert_topping || ""}
                 onChange={(e) =>
                   handleChange("dessert_topping", e.target.value)
@@ -268,34 +272,40 @@ const UpdateRsvp = () => {
                 </p>
               )}
             </div>
-
             {/* Allergies */}
             <div>
-              <label className="block text-base mb-1">
-                Dietary requirements & Allergies{" "}
-                <span className="text-sm text-gray-500">(optional)</span>
+              <label htmlFor="allergies" className="block text-base mb-1">
+                Dietary requirements & Allergies (Optional)
               </label>
               <textarea
-                name="allergies"
-                className="w-full border border-gray-300 rounded-md p-2"
+                id="allergies"
+                className="mt-1 p-4 border border-gray-300 rounded-md w-full text-dark-grey focus:outline-none focus:ring-2 focus:ring-hunter-green"
                 value={updatedRsvp.allergies || ""}
                 onChange={handleInputChange}
               />
             </div>
           </>
         )}
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-orange text-white py-2 px-6 rounded-md font-bodoni text-lg hover:bg-burnt-orange/90 focus:outline-none focus:ring-2 focus:ring-hunter-green cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          >
+            {loading ? (
+              <>
+                <span className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                <span>Updating</span>
+              </>
+            ) : (
+              "Submit"
+            )}
+          </button>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-orange-700 text-white py-2 px-4 rounded-md hover:bg-orange-800 transition-colors disabled:opacity-50"
-        >
-          {loading ? "Updating..." : "Update RSVP"}
-        </button>
-
-        {error && <p className="text-red-600 text-sm">{error}</p>}
+          {error && <p className="text-red-500 mt-2">{error}</p>}
+        </div>
       </form>
-    </div>
+    </section>
   );
 };
 

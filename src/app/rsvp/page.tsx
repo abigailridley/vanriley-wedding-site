@@ -84,7 +84,6 @@ const RSVPForm = () => {
 
       if (!response.ok) throw new Error("Failed to submit RSVP.");
 
-      // Optionally, trigger an email with readable values:
       await fetch("/api/send-confirmation", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
