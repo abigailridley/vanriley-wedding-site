@@ -35,6 +35,19 @@ export async function GET(req: Request) {
   return NextResponse.json({ data });
 }
 
+const dessertChoiceMap: Record<string, string> = {
+  chocolate_biscoff: "Chocolate Biscoff Cake",
+  lemon: "Lemon Cake",
+  fruit: "Fruit Cake",
+};
+
+const dessertToppingMap: Record<string, string> = {
+  cream: "Cream",
+  berries: "Berries",
+  berries_cream: "Berries and Cream",
+  none: "None",
+};
+
 // POST method: Update RSVP
 export async function POST(req: Request) {
   const body: RsvpData = await req.json();
@@ -70,6 +83,8 @@ export async function POST(req: Request) {
   }
 
   const isAttending = body.rsvp === true;
+  const readableDessert = body.dessert_choice ? dessertChoiceMap[body.dessert_choice] || body.dessert_choice : "N/A";
+const readableTopping = body.dessert_topping ? dessertToppingMap[body.dessert_topping] || body.dessert_topping : "None";
   const updateLink = `http://vanrileywedding.co.uk/update-rsvp?uuid=${body.uuid}`;
 
   try {
@@ -82,8 +97,8 @@ export async function POST(req: Request) {
         <p><strong>${original.name}</strong> has updated their RSVP.</p>
         <p><strong>Attending:</strong> ${isAttending ? "Yes" : "No"}</p>
         ${isAttending ? `
-          <p><strong>Dessert:</strong> ${body.dessert_choice || "N/A"}</p>
-          <p><strong>Topping:</strong> ${body.dessert_topping || "None"}</p>
+        <p><strong>Dessert:</strong> ${body.dessert_choice || "N/A"}</p>
+<p><strong>Topping:</strong> ${body.dessert_topping || "None"}</p>
           <p><strong>Allergies:</strong> ${body.allergies || "None"}</p>
         ` : ""}
       `,
@@ -105,8 +120,8 @@ export async function POST(req: Request) {
             <li><strong>Guest Name:</strong> ${original.name}</li>
             <li><strong>Attending:</strong> ${isAttending ? "Yes" : "No"}</li>
             ${isAttending ? `
-              <li><strong>Dessert:</strong> ${body.dessert_choice || "N/A"}</li>
-              <li><strong>Topping:</strong> ${body.dessert_topping || "None"}</li>
+           <li><strong>Dessert:</strong> ${readableDessert}</li>
+<li><strong>Topping:</strong> ${readableTopping}</li>
               <li><strong>Allergies:</strong> ${body.allergies || "None"}</li>
             ` : ""}
           </ul>
