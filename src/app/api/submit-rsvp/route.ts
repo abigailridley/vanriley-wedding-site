@@ -82,6 +82,7 @@ export async function POST(req: Request) {
               ? `
             <p style="font-size: 18px; text-align: center;">We’re so happy you’ll be joining us!</p>
             <hr />
+            <p><strong>Attending:</strong> ${isAttending ? "Yes" : "No"}</p>
             <p><strong>Your Dessert:</strong> ${formattedDessert}</p>
             <p><strong>Topping:</strong> ${formattedTopping}</p>
             <p><strong>Allergies:</strong> ${body.allergies || "None"}</p>
