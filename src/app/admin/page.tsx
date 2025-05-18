@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
 
 const dessertChoiceMap: Record<string, string> = {
-  chocolate: "Chocolate Biscoff Cake",
+  chocolate_biscoff: "Chocolate Biscoff Cake",
   lemon: "Lemon Cake",
   fruit: "Fruit Cake",
 };
@@ -13,7 +13,7 @@ const dessertChoiceMap: Record<string, string> = {
 const dessertToppingMap: Record<string, string> = {
   cream: "Cream",
   berries: "Berries",
-  berries_and_cream: "Berries and Cream",
+  berries_cream: "Berries and Cream",
   none: "None",
 };
 
@@ -90,7 +90,7 @@ const AdminPage = () => {
       <div className="flex justify-center sm:justify-end">
         <button
           onClick={exportToExcel}
-          className="bg-orange text-white hover:bg-orange-700 transition-colors font-medium py-2 px-6 rounded-md shadow"
+          className="bg-orange text-white  hover:bg-orange hover:cursor-pointer hover:opacity-85 transition-colors font-medium py-2 px-6 rounded-md shadow"
         >
           Export to Excel
         </button>
