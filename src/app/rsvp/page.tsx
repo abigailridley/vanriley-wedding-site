@@ -115,16 +115,24 @@ const RSVPForm = () => {
 
   return (
     <section className="bg-green text-dark-grey px-[10vw] py-12">
-      <div className="max-w-3xl mx-auto mb-8 italic text-center text-md sm:text-lg font-playfair tracking-wide text-dark-grey bg-orange p-6 rounded-lg shadow-sm">
+      <div className="max-w-2xl mx-auto mb-8  text-center text-md sm:text-lg font-playfair tracking-wide text-dark-grey bg-white p-6 rounded-lg shadow-sm ">
         <p>
-          We kindly ask that only those named on the invitation complete this
-          RSVP form.
+          <strong>
+            Please only complete this RSVP form if your name is on the
+            invitation.
+          </strong>
         </p>
-        <hr className="my-4 w-2/3 mx-auto border-dark-grey opacity-50 " />
+        <hr className="my-4 w-2/3 mx-auto border-green opacity-50" />
         <p>
-          If you&apos;re replying on behalf of another guest, please submit a
-          separate RSVP for each person. You may use the same email address —
-          each guest will receive their own confirmation.
+          We are unable to accommodate children or plus ones — thank you for
+          understanding.
+        </p>
+        <hr className="my-4 w-2/3 mx-auto border-green opacity-50" />
+        <p>
+          If you&apos;re replying on behalf of another guest,{" "}
+          <strong>please submit a separate RSVP for each person</strong>. You
+          may use the same email address — each guest will receive their own
+          confirmation.
         </p>
       </div>
 
@@ -137,10 +145,7 @@ const RSVPForm = () => {
         </h2>
 
         <div>
-          <label
-            htmlFor="name"
-            className="block text-lg font-playfair text-hunter-green"
-          >
+          <label htmlFor="name" className="block text-lg  text-hunter-green">
             Guest Name
           </label>
           <input
@@ -154,10 +159,7 @@ const RSVPForm = () => {
         </div>
 
         <div>
-          <label
-            htmlFor="email"
-            className="block text-lg font-bodoni text-hunter-green"
-          >
+          <label htmlFor="email" className="block text-lg text-hunter-green">
             Email Address
           </label>
           <input
@@ -171,10 +173,7 @@ const RSVPForm = () => {
         </div>
 
         <div>
-          <label
-            htmlFor="rsvp"
-            className="block text-lg font-bodoni text-hunter-green"
-          >
+          <label htmlFor="rsvp" className="block text-lg  text-hunter-green">
             Will you be joining us?
           </label>
           <select
@@ -203,7 +202,7 @@ const RSVPForm = () => {
             <div>
               <label
                 htmlFor="dessert"
-                className="block text-lg font-bodoni text-hunter-green"
+                className="block text-lg  text-hunter-green"
               >
                 Choose your dessert
               </label>
@@ -230,7 +229,7 @@ const RSVPForm = () => {
             <div>
               <label
                 htmlFor="topping"
-                className="block text-lg font-bodoni text-hunter-green"
+                className="block text-lg  text-hunter-green"
               >
                 Choose a dessert topping
               </label>
@@ -256,7 +255,7 @@ const RSVPForm = () => {
             <div>
               <label
                 htmlFor="allergies"
-                className="block text-lg font-bodoni text-hunter-green"
+                className="block text-lg  text-hunter-green"
               >
                 Dietary requirements & Allergies (Optional)
               </label>
