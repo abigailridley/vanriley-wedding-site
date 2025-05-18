@@ -124,8 +124,8 @@ const RSVPForm = () => {
         </p>
         <hr className="my-4 w-2/3 mx-auto border-green opacity-50" />
         <p>
-          Guests are limited to inite-only, we are unable to accommodate
-          children or plus ones — thank you for understanding.
+          Guests are limited to invite-only, we are unable to accommodate
+          children or plus ones — we thank you for your understanding.
         </p>
         <hr className="my-4 w-2/3 mx-auto border-green opacity-50" />
         <p>
