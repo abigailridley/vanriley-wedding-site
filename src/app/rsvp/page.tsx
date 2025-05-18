@@ -104,7 +104,7 @@ const RSVPForm = () => {
       setDessertChoice("");
       setDessertTopping("");
 
-      router.push("/success?type=submission");
+      router.push(`/success?type=submission&rsvp=${rsvp ? "yes" : "no"}`);
     } catch (err: unknown) {
       if (err instanceof Error) setError(err.message);
       else setError("An unknown error occurred.");

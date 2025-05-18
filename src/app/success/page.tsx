@@ -7,6 +7,7 @@ const Success = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const type = searchParams?.get("type");
+  const rsvp = searchParams?.get("rsvp");
 
   return (
     <div className="min-h-screen bg-tan flex items-center justify-center px-4 py-16">
@@ -20,7 +21,9 @@ const Success = () => {
         <p className="text-lg font-playfair text-dark-grey mb-4">
           {type === "update"
             ? "You will receive an email confirming your changes."
-            : "We can't wait to see you at the wedding!"}
+            : rsvp === "no"
+              ? "We're sorry you can't make it — thank you for letting us know."
+              : "We can't wait to see you at the wedding!"}
         </p>
 
         <p className="text-lg font-playfair text-dark-grey mb-8">
