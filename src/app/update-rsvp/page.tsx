@@ -12,19 +12,6 @@ type RsvpData = {
   dessert_topping?: string;
 };
 
-const dessertChoiceMap: Record<string, string> = {
-  chocolate_biscoff: "Chocolate Biscoff Cake",
-  lemon: "Lemon Cake",
-  fruit: "Fruit Cake",
-};
-
-const dessertToppingMap: Record<string, string> = {
-  cream: "Cream",
-  berries: "Berries",
-  berries_cream: "Berries and Cream",
-  none: "None",
-};
-
 const UpdateRsvp = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
