@@ -6,7 +6,7 @@ export default function FAQsPage() {
       title: "When is the wedding?",
       answer: (
         <div>
-          Saturday 23rd May 2026 in beautiful Suffolk.
+          <strong>Saturday 23rd May 2026</strong> in beautiful Suffolk.
           <div className="mt-2 italic">
             Day guests are warmly invited to arrive from <strong>1pm</strong>,
             with the ceremony beginning promptly at <strong>2pm</strong>.
@@ -24,6 +24,16 @@ export default function FAQsPage() {
           <strong>Alpheton Hall</strong>
           <br />
           Church Lane, Alpheton, Sudbury, Suffolk CO10 9BL
+          <div>
+            <a
+              href="https://alpheton-hall-barns.co.uk/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline italic text-green hover:text-[#2a2a2a]"
+            >
+              www.alpheton-hall-barns.co.uk
+            </a>
+          </div>
           <div className="rounded justify-center flex  overflow-hidden shadow-lg border mt-8">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2449.747730540292!2d0.7331821119432542!3d52.12071867184228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8537210914327%3A0xfeb038023475ff50!2sAlpheton%20Hall%20Barns!5e0!3m2!1sen!2suk!4v1747563895841!5m2!1sen!2suk"
