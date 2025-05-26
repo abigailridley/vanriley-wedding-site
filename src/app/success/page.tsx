@@ -32,8 +32,8 @@ const Success = () => {
             : "If you need to make any changes, you will receive an email with a link to update your details."}
         </p>
         <p className="text-lg font-playfair text-dark-grey mb-8">
-          If you don't see the email in your inbox, please check your spam or
-          junk folder — it may take a minute or two to arrive.
+          If you don&apos;t see the email in your inbox, please check your spam
+          or junk folder — it may take a minute or two to arrive.
         </p>
 
         <button
