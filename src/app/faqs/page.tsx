@@ -7,7 +7,7 @@ export default function FAQsPage() {
       answer: (
         <div>
           <strong>Saturday 23rd May 2026</strong> in beautiful Suffolk.
-          <div className="mt-2 italic">
+          <div className="mt-2">
             Day guests are warmly invited to arrive from <strong>1pm</strong>,
             with the ceremony beginning promptly at <strong>2pm</strong>.
             <br />
@@ -64,12 +64,24 @@ export default function FAQsPage() {
             <strong>14th September</strong> and reference “
             <strong>Riley</strong>” when reserving.
           </p>
+          <p>
+            <strong>
+              To book please email{" "}
+              <a
+                href="mailto:functions@theswanatlavenham"
+                className="underline text-[#4b6c52] hover:text-[#2a2a2a]"
+              >
+                functions@theswanatlavenham
+              </a>
+            </strong>
+          </p>
           <div className="mt-2 text-base space-y-1">
             <p>
               <strong>Address:</strong> High St, Lavenham, Sudbury CO10 9QA
             </p>
             <p>
-              <strong>Phone:</strong> <span> 01787 247477</span>
+              <strong>Phone:</strong> <span> 01787 247477</span> and select
+              extension 3 for events
             </p>
             <p>
               <strong>Website:</strong>{" "}
