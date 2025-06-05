@@ -37,7 +37,7 @@ export async function GET(req: Request) {
 
 const dessertChoiceMap: Record<string, string> = {
   chocolate_biscoff: "Chocolate Biscoff Cake",
-  lemon: "Lemon Cake",
+  lemon: "Lemon & Elderflower Cake",
   fruit: "Fruit Cake",
 };
 

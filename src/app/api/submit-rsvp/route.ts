@@ -7,7 +7,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 // Add your mappings here
 const dessertChoiceMap: Record<string, string> = {
   chocolate_biscoff: "Chocolate Biscoff Cake",
-  lemon: "Lemon Cake",
+  lemon: "Lemon & Elderflower Cake",
   fruit: "Fruit Cake",
 };
 

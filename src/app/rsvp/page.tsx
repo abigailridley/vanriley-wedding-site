@@ -6,7 +6,7 @@ import { useState } from "react";
 // Human-readable labels for email formatting
 const dessertChoiceMap: Record<string, string> = {
   chocolate_biscoff: "Chocolate Biscoff Cake",
-  lemon: "Lemon Cake",
+  lemon: "Lemon & Elderflower Cake",
   fruit: "Fruit Cake",
 };
 
@@ -216,7 +216,7 @@ const RSVPForm = () => {
                 <option value="chocolate_biscoff">
                   Chocolate Biscoff Cake
                 </option>
-                <option value="lemon">Lemon Cake</option>
+                <option value="lemon">Lemon & Elderflower Cake</option>
                 <option value="fruit">Fruit Cake</option>
               </select>
               {dessertError && (

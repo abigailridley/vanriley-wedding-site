@@ -210,7 +210,7 @@ const UpdateRsvp = () => {
                 <option value="chocolate_biscoff">
                   Chocolate Biscoff Cake
                 </option>
-                <option value="lemon">Lemon Cake</option>
+                <option value="lemon">Lemon & Elderflower Cake</option>
                 <option value="fruit">Fruit Cake</option>
               </select>
               {dessertError && (
