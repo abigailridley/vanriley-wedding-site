@@ -71,7 +71,7 @@ export default function FAQsPage() {
                 href="mailto:functions@theswanatlavenham"
                 className="underline text-[#4b6c52] hover:text-[#2a2a2a]"
               >
-                functions@theswanatlavenham
+                functions@theswanatlavenham.co.uk
               </a>
             </strong>
           </p>
