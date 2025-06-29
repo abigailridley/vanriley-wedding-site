@@ -34,7 +34,7 @@ export default function FAQsPage() {
               www.alpheton-hall-barns.co.uk
             </a>
           </div>
-          <div className="rounded justify-center flex  overflow-hidden shadow-lg border mt-8">
+          <div className="rounded justify-center flex overflow-hidden shadow-lg border mt-8">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2449.747730540292!2d0.7331821119432542!3d52.12071867184228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8537210914327%3A0xfeb038023475ff50!2sAlpheton%20Hall%20Barns!5e0!3m2!1sen!2suk!4v1747563895841!5m2!1sen!2suk"
               width="100%"
@@ -45,6 +45,31 @@ export default function FAQsPage() {
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
           </div>
+          <p className="mt-4">
+            Coaches will be arranged at midnight to take guests back to The Swan
+            Hotel and Sudbury town centre — we&apos;ll confirm nearer the time
+            for numbers.
+          </p>
+        </>
+      ),
+    },
+    {
+      title: "What is the dress code?",
+      answer: (
+        <>
+          <p>
+            We’d love everyone to dress up — smart suits and dresses are
+            perfect.
+          </p>
+          <p className="mt-2">
+            We kindly ask that you avoid wearing these colours, as they’re the
+            bridesmaids’ dresses:
+          </p>
+          <img
+            src="images/102934.png"
+            alt="Bridesmaid dress colour gradient"
+            className="w-1/2 mt-4 rounded shadow justify-center flex mx-auto"
+          />
         </>
       ),
     },
@@ -68,7 +93,7 @@ export default function FAQsPage() {
             <strong>
               To book please email{" "}
               <a
-                href="mailto:functions@theswanatlavenham"
+                href="mailto:functions@theswanatlavenham.co.uk"
                 className="underline text-[#4b6c52] hover:text-[#2a2a2a]"
               >
                 functions@theswanatlavenham.co.uk
@@ -80,7 +105,7 @@ export default function FAQsPage() {
               <strong>Address:</strong> High St, Lavenham, Sudbury CO10 9QA
             </p>
             <p>
-              <strong>Phone:</strong> <span> 01787 247477</span> and select
+              <strong>Phone:</strong> <span>01787 247477</span> and select
               extension 3 for events
             </p>
             <p>
