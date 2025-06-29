@@ -53,7 +53,7 @@ export async function POST(req: Request) {
   try {
     await resend.emails.send({
       from: "Van-Riley Wedding RSVP <rsvp@vanrileywedding.co.uk>",
-      to: "hello@vanrileywedding.co.uk",
+      to: "contact@vanrileywedding.co.uk",
       subject: "New RSVP Submission",
       html: `
         <p><strong>Name:</strong> ${body.name}</p>

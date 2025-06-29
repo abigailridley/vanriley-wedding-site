@@ -6,10 +6,10 @@ const Footer = () => {
         <p className="text-sm">
           💌 Contact us at{" "}
           <a
-            href="mailto:hello@vanrileywedding.co.uk"
+            href="mailto:contact@vanrileywedding.co.uk"
             className="underline hover:text-gray-300"
           >
-            hello@vanrileywedding.co.uk
+            contact@vanrileywedding.co.uk
           </a>
         </p>
         <p className="text-sm">

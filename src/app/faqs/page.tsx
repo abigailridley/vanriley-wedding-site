@@ -143,10 +143,10 @@ export default function FAQsPage() {
         <>
           Reach out any time at{" "}
           <a
-            href="mailto:hello@vanrileywedding.co.uk"
+            href="mailto:contact@vanrileywedding.co.uk"
             className="underline text-[#4b6c52] hover:text-[#2a2a2a]"
           >
-            hello@vanrileywedding.co.uk
+            contact@vanrileywedding.co.uk
           </a>{" "}
           — we’re more than happy to help.
         </>

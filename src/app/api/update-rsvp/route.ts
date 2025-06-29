@@ -91,7 +91,7 @@ const readableTopping = body.dessert_topping ? dessertToppingMap[body.dessert_to
     // Send email to admin
     await resend.emails.send({
       from: "Van-Riley Wedding RSVP <rsvp@vanrileywedding.co.uk>",
-      to: "hello@vanrileywedding.co.uk",
+      to: "contact@vanrileywedding.co.uk",
       subject: "RSVP Updated",
       html: `
         <p><strong>${original.name}</strong> has updated their RSVP.</p>

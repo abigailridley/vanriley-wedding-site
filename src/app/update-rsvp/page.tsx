@@ -143,10 +143,10 @@ const UpdateRsvp = () => {
         <p className="mt-4">
           Please contact us at{" "}
           <a
-            href="mailto:hello@vanrileywedding.co.uk"
+            href="mailto:contact@vanrileywedding.co.uk"
             className="text-orange-700 underline"
           >
-            hello@vanrileywedding.co.uk
+            contact@vanrileywedding.co.uk
           </a>{" "}
           and we’ll help you update your choices.
         </p>
