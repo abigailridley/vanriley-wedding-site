@@ -46,9 +46,9 @@ export default function FAQsPage() {
             ></iframe>
           </div>
           <p className="mt-4">
-            Coaches will be arranged at midnight to take guests back to The Swan
-            Hotel and Sudbury town centre — we&apos;ll confirm nearer the time
-            for numbers.
+            Coaches will be arranged at midnight to take guests back to the main
+            accommodation and Sudbury town centre — we&apos;ll confirm nearer
+            the time for numbers.
           </p>
         </>
       ),
@@ -83,46 +83,15 @@ export default function FAQsPage() {
       answer: (
         <>
           <p>
-            A block of rooms has been reserved at{" "}
-            <strong>The Swan Hotel & Spa</strong> in Lavenham for Saturday 23rd
-            May. Rooms are first-come, first-served — please book by{" "}
-            <strong>14th September</strong> and reference “
-            <strong>Riley</strong>” when reserving.
+            We&apos;re currently arranging new accommodation options for guests,
+            as our original booking is no longer available.
           </p>
-          <p>
-            <strong>
-              To book please email{" "}
-              <a
-                href="mailto:functions@theswanatlavenham.co.uk"
-                className="underline text-[#4b6c52] hover:text-[#2a2a2a]"
-              >
-                functions@theswanatlavenham.co.uk
-              </a>
-            </strong>
-          </p>
-          <div className="mt-2 text-base space-y-1">
-            <p>
-              <strong>Address:</strong> High St, Lavenham, Sudbury CO10 9QA
-            </p>
-            <p>
-              <strong>Phone:</strong> <span>01787 247477</span> and select
-              extension 3 for events
-            </p>
-            <p>
-              <strong>Website:</strong>{" "}
-              <a
-                href="https://theswanatlavenham.co.uk"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline hover:text-[#4b6c52]"
-              >
-                theswanatlavenham.co.uk
-              </a>
-            </p>
-          </div>
           <p className="mt-2">
-            The nearest larger town is Sudbury, where you&apos;ll find plenty of
-            alternative hotels and guest rooms.
+            Please check back here for updates — more details coming soon!
+          </p>
+          <p className="mt-2">
+            Alternatively, the nearest larger town is Sudbury, where you&apos;ll
+            find plenty of hotels and guest rooms.
           </p>
         </>
       ),
