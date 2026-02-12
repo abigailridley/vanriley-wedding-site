@@ -12,7 +12,7 @@ export default function FAQsPage() {
             with the ceremony beginning promptly at <strong>2pm</strong>.
             <br />
             Evening guests are welcome to join the celebrations from{" "}
-            <strong>7pm</strong> onwards.
+            <strong>6:45pm</strong> onwards.
           </div>
         </div>
       ),
