@@ -7,11 +7,11 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 // GET method: Fetch RSVP data
 export async function GET(req: Request) {
   const url = new URL(req.url);
-  // const password = url.searchParams.get("password");
+  const password = url.searchParams.get("password");
 
-  // if (password !== process.env.WEBSITE_ADMIN_PASSWORD) {
-  //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  // }
+  if (password !== process.env.WEBSITE_ADMIN_PASSWORD) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
   const { data, error } = await supabase
     .from("rsvps")
