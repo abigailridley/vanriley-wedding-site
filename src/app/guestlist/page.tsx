@@ -1,6 +1,5 @@
 "use client";
 
-import { supabase } from "@/lib/supabase";
 import { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
 
@@ -35,16 +34,15 @@ const AdminPage = () => {
   useEffect(() => {
     const fetchRsvps = async () => {
       setLoading(true);
-      const { data, error } = await supabase
-        .from("rsvps")
-        .select("*")
-        .order("created_at", { ascending: false });
 
-      if (error) {
-        console.error("Error fetching RSVPs:", error.message);
+      const res = await fetch(`/api/get-all-rsvp`);
+      const json = await res.json();
+      if (json.data) {
+        setRsvps(json.data);
       } else {
-        setRsvps(data);
+        console.error("Error fetching RSVPs:", json.error);
       }
+
       setLoading(false);
     };
     fetchRsvps();
