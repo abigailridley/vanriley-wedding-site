@@ -82,17 +82,12 @@ export default function FAQsPage() {
       title: "Where should we stay?",
       answer: (
         <>
+          {" "}
           <p>
-            We&apos;re currently arranging new accommodation options for guests,
-            as our original booking is no longer available.
+            The nearest larger town is Sudbury, where you&apos;ll find plenty of
+            hotels and guest rooms.
           </p>
-          <p className="mt-2">
-            Please check back here for updates — more details coming soon!
-          </p>
-          <p className="mt-2">
-            Alternatively, the nearest larger town is Sudbury, where you&apos;ll
-            find plenty of hotels and guest rooms.
-          </p>
+          <p>We will have coaches taking guests to and from the venue.</p>
         </>
       ),
     },

@@ -26,6 +26,7 @@ const AdminPage = () => {
     dessert_topping?: string;
     allergies?: string;
     created_at?: string;
+    guest_type?: string; // new field for guest type
   }
 
   const [rsvps, setRsvps] = useState<Rsvp[]>([]);
@@ -69,6 +70,7 @@ const AdminPage = () => {
         ? dessertToppingMap[rsvp.dessert_topping] || rsvp.dessert_topping
         : "",
       Allergies: rsvp.allergies || "",
+      "Guest Type": rsvp.guest_type || "",
     }));
 
     const ws = XLSX.utils.json_to_sheet(exportData);
@@ -110,6 +112,7 @@ const AdminPage = () => {
                 <th className="px-4 py-3">Dessert Choice</th>
                 <th className="px-4 py-3">Topping</th>
                 <th className="px-4 py-3">Allergies/Dietary</th>
+                <th className="px-4 py-3">Guest type</th>
               </tr>
             </thead>
             <tbody>
@@ -145,6 +148,10 @@ const AdminPage = () => {
                       : "—"}
                   </td>
                   <td className="px-4 py-3">{rsvp.allergies || "—"}</td>
+
+                  <td className="px-4 py-3">
+                    {rsvp.guest_type ? rsvp.guest_type : "—"}
+                  </td>
                 </tr>
               ))}
             </tbody>
